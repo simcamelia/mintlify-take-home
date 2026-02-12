@@ -1,0 +1,47 @@
+# Navigation & Structure Decisions
+
+## Decision-Making Process
+
+When restructuring the documentation, my primary goal was clarity. I started by identifying the main user journeys: new users onboarding, developers implementing integrations, and existing users troubleshooting or reviewing changes.
+
+To reduce confusion, I made V2 the default and clearly labeled V1 as a legacy version. This ensures that most users are directed toward the most up-to-date documentation while still preserving access to older versions.
+
+I also mirrored the structure across English and French versions to maintain consistency. This prevents navigation differences between languages and supports easier long-term maintenance.
+
+---
+
+## Key User Experience Improvements
+
+The updated structure improves usability in several ways:
+
+- V2 appears first, guiding users toward the current version.
+- V1 is clearly labeled as legacy to prevent accidental use.
+- Language sections are grouped logically and mirror each other.
+- Page order is consistent across versions, reducing relearning effort.
+- The sidebar avoids deep nesting to minimize cognitive load.
+
+These changes help users quickly find relevant information without needing to understand internal version history.
+
+---
+
+## Trade-Offs Considered
+
+One key trade-off was between minimizing sidebar length and keeping version boundaries explicit. Combining versions under shared feature categories would shorten the sidebar, but it could introduce ambiguity and increase support overhead.
+
+I chose explicit separation for clarity and maintainability.
+
+Another consideration was whether to use a language toggle approach instead of grouping languages in the sidebar. While a toggle can be elegant, grouping languages keeps structure transparent and easier to scale within the current setup.
+
+---
+
+## Scalability for Future Growth
+
+The navigation is structured to support:
+
+- Addition of V3 without restructuring existing content
+- Introduction of new languages (e.g., Spanish) using the same mirrored pattern
+- Clear version lifecycle management (current vs legacy)
+
+Because the JSON structure mirrors the folder structure, future updates can be implemented with minimal risk of breaking navigation.
+
+Overall, the goal was to prioritize clarity, consistency, and long-term maintainability.
