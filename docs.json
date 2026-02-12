@@ -72,6 +72,12 @@
           "fr/v1/troubleshooting",
           "fr/v1/changelog"
         ]
+      },
+      {
+        "group": "Project Notes",
+        "pages": [
+          "navigation-decisions"
+        ]
       }
     ]
   },
