@@ -17,11 +17,14 @@
           "v2/index",
           "v2/getting-started",
           "v2/integrations",
-          "v2/pricing",
-          "v2/troubleshooting",
+          "v2/api-reference",
+          "v2/advanced-usage",
           "v2/analytics",
+          "v2/inventory",
+          "v2/pricing",
           "v2/quality",
-          "v2/inventory"
+          "v2/troubleshooting",
+          "v2/changelog"
         ]
       },
       {
@@ -30,11 +33,13 @@
           "v1/index",
           "v1/getting-started",
           "v1/integrations",
-          "v1/pricing",
-          "v1/troubleshooting",
+          "v1/api-reference",
           "v1/analytics",
+          "v1/inventory",
+          "v1/pricing",
           "v1/quality",
-          "v1/inventory"
+          "v1/troubleshooting",
+          "v1/changelog"
         ]
       },
       {
@@ -43,11 +48,14 @@
           "fr/v2/index",
           "fr/v2/getting-started",
           "fr/v2/integrations",
-          "fr/v2/pricing",
-          "fr/v2/troubleshooting",
+          "fr/v2/api-reference",
+          "fr/v2/advanced-usage",
           "fr/v2/analytics",
+          "fr/v2/inventory",
+          "fr/v2/pricing",
           "fr/v2/quality",
-          "fr/v2/inventory"
+          "fr/v2/troubleshooting",
+          "fr/v2/changelog"
         ]
       },
       {
@@ -56,11 +64,13 @@
           "fr/v1/index",
           "fr/v1/getting-started",
           "fr/v1/integrations",
-          "fr/v1/pricing",
-          "fr/v1/troubleshooting",
+          "fr/v1/api-reference",
           "fr/v1/analytics",
+          "fr/v1/inventory",
+          "fr/v1/pricing",
           "fr/v1/quality",
-          "fr/v1/inventory"
+          "fr/v1/troubleshooting",
+          "fr/v1/changelog"
         ]
       }
     ]
