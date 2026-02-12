@@ -8,11 +8,25 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
+
   "navigation": {
     "groups": [
       {
-        "group":"V1",
-        "pages":[
+        "group": "V2 (Current)",
+        "pages": [
+          "v2/index",
+          "v2/getting-started",
+          "v2/integrations",
+          "v2/pricing",
+          "v2/troubleshooting",
+          "v2/analytics",
+          "v2/quality",
+          "v2/inventory"
+        ]
+      },
+      {
+        "group": "V1 (Legacy)",
+        "pages": [
           "v1/index",
           "v1/getting-started",
           "v1/integrations",
@@ -22,13 +36,41 @@
           "v1/quality",
           "v1/inventory"
         ]
+      },
+      {
+        "group": "Français — V2",
+        "pages": [
+          "fr/v2/index",
+          "fr/v2/getting-started",
+          "fr/v2/integrations",
+          "fr/v2/pricing",
+          "fr/v2/troubleshooting",
+          "fr/v2/analytics",
+          "fr/v2/quality",
+          "fr/v2/inventory"
+        ]
+      },
+      {
+        "group": "Français — V1",
+        "pages": [
+          "fr/v1/index",
+          "fr/v1/getting-started",
+          "fr/v1/integrations",
+          "fr/v1/pricing",
+          "fr/v1/troubleshooting",
+          "fr/v1/analytics",
+          "fr/v1/quality",
+          "fr/v1/inventory"
+        ]
       }
     ]
   },
+
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+
   "navbar": {
     "links": [
       {
@@ -42,18 +84,20 @@
       "href": "https://dashboard.salsaasaservice.com"
     }
   },
+
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
+
   "footer": {
     "socials": {
       "x": "https://x.com/salsaasaservice",
