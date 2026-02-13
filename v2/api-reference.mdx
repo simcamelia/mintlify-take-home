@@ -1,42 +1,75 @@
 ---
 title: "API Reference - v2.0"
-description: "Complete API documentation for v2.0 with GraphQL support"
+description: "Complete API documentation for v2.0 with REST and GraphQL support"
 ---
+
+import VersionBanner from "/snippets/VersionBanner";
 
 # Salsa as a Service API v2.0
 
-The v2.0 API adds GraphQL support, enhanced webhooks, and new AI forecasting endpoints.
+<VersionBanner version="v2" status="current" />
 
-## Base URL
+The v2.0 API adds GraphQL support, enhanced webhooks, new AI forecasting endpoints, and improved analytics capabilities.
 
-```
+---
+
+## Base URLs
+
+<CodeGroup>
+```text Production
 https://api.salsaasaservice.com/v2
 ```
 
-> **Note:**
-**New in v2.0**: GraphQL endpoint at `https://api.salsaasaservice.com/graphql`
+```text GraphQL
+https://api.salsaaservice.com/graphql
+```
 
+```text Sandbox
+https://api-sandbox.salsaasaservice.com/v2
+```
+</CodeGroup>
+
+<Callout type="info">
+New in v2.0: GraphQL support allows flexible nested queries and fewer API round trips.
+</Callout>
+
+---
 
 ## Authentication
 
 All API requests require authentication using your API key.
 
-> **Note:**
-**API Key**: Get your API key from the [Developer Settings](https://app.salsaasaservice.com/settings/api) in your dashboard.
-
+<Callout type="info">
+Get your API key from the <a href="https://app.salsaasaservice.com/settings/api">Developer Settings</a> in your dashboard.
+</Callout>
 
 ### Authentication Header
 
 Include your API key in the Authorization header:
 
-```http
+<CodeGroup>
+```http Header
 Authorization: Bearer YOUR_API_KEY
 ```
+
+```bash Curl
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.salsaasaservice.com/v2/ingredients
+```
+
+```javascript Fetch
+fetch("https://api.salsaasaservice.com/v2/ingredients", {
+  headers: { Authorization: "Bearer YOUR_API_KEY" }
+});
+```
+</CodeGroup>
+
+---
 
 ## Rate Limits
 
 - **Free Plan**: 1,000 requests per hour
-- **Professional Plan**: 10,000 requests per hour  
+- **Professional Plan**: 10,000 requests per hour
 - **Enterprise Plan**: 100,000 requests per hour
 
 Rate limit headers are included in all responses:
@@ -47,35 +80,44 @@ X-RateLimit-Remaining: 999
 X-RateLimit-Reset: 1640995200
 ```
 
+---
+
 ## Core Endpoints
 
+<CardGroup>
+  <Card title="Inventory Management" href="#inventory">
+    Manage salsa ingredients, track stock levels, and monitor freshness.
+  </Card>
 
-**[Inventory Management](#inventory)**  
-Manage salsa ingredients, track stock levels, and monitor freshness.
+  <Card title="Recipe Management" href="#recipes">
+    Create, update, and manage salsa recipes and production workflows.
+  </Card>
 
-**[Recipe Management](#recipes)**  
-Create, update, and manage salsa recipes and production workflows.
+  <Card title="Production Tracking" href="#production">
+    Track salsa production batches, quality metrics, and yield data.
+  </Card>
 
-**[Production Tracking](#production)**  
-Track salsa production batches, quality metrics, and yield data.
+  <Card title="Analytics & Reporting" href="#analytics">
+    Access detailed analytics and generate custom reports.
+  </Card>
+</CardGroup>
 
-**[Analytics & Reporting](#analytics)**  
-Access detailed analytics and generate custom reports.
+---
 
-
-
-## Inventory Management 
+## Inventory Management {#inventory}
 
 ### Get All Ingredients
 
 Retrieve a list of all ingredients in your inventory.
 
+<Tabs>
+  <Tab title="Request">
 ```http
 GET /ingredients
 ```
+  </Tab>
 
-**Response:**
-
+  <Tab title="Response">
 ```json
 {
   "data": [
@@ -98,16 +140,18 @@ GET /ingredients
   }
 }
 ```
+  </Tab>
+</Tabs>
 
 ### Update Ingredient Stock
 
 Update the stock level for a specific ingredient.
 
+<Tabs>
+  <Tab title="Request">
 ```http
 PUT /ingredients/{ingredient_id}/stock
 ```
-
-**Request Body:**
 
 ```json
 {
@@ -116,9 +160,9 @@ PUT /ingredients/{ingredient_id}/stock
   "notes": "New shipment received"
 }
 ```
+  </Tab>
 
-**Response:**
-
+  <Tab title="Response">
 ```json
 {
   "id": "ing_123",
@@ -128,6 +172,8 @@ PUT /ingredients/{ingredient_id}/stock
   "updated_at": "2024-01-15T11:00:00Z"
 }
 ```
+  </Tab>
+</Tabs>
 
 ### Add New Ingredient
 
@@ -150,7 +196,9 @@ POST /ingredients
 }
 ```
 
-## Recipe Management 
+---
+
+## Recipe Management {#recipes}
 
 ### Get All Recipes
 
@@ -224,7 +272,9 @@ Update an existing recipe.
 PUT /recipes/{recipe_id}
 ```
 
-## Production Tracking 
+---
+
+## Production Tracking {#production}
 
 ### Start Production Batch
 
@@ -286,18 +336,22 @@ Retrieve production history with filtering options.
 GET /production/batches?start_date=2024-01-01&end_date=2024-01-31&recipe_id=rec_456
 ```
 
-## Analytics & Reporting 
+---
+
+## Analytics & Reporting {#analytics}
 
 ### Get Production Analytics
 
 Retrieve analytics data for salsa production.
 
+<Tabs>
+  <Tab title="Request">
 ```http
 GET /analytics/production?period=30d&recipe_id=rec_456
 ```
+  </Tab>
 
-**Response:**
-
+  <Tab title="Response">
 ```json
 {
   "period": "30d",
@@ -315,6 +369,8 @@ GET /analytics/production?period=30d&recipe_id=rec_456
   ]
 }
 ```
+  </Tab>
+</Tabs>
 
 ### Get Inventory Analytics
 
@@ -323,6 +379,8 @@ Get insights into inventory usage and optimization opportunities.
 ```http
 GET /analytics/inventory?period=7d
 ```
+
+---
 
 ## Error Handling
 
@@ -344,39 +402,32 @@ The API uses standard HTTP status codes and returns detailed error information.
 
 ### Common Error Codes
 
+<Accordion title="Client Errors">
+- `400 Bad Request` - Invalid request data  
+- `401 Unauthorized` - Missing or invalid API key  
+- `403 Forbidden` - Insufficient permissions  
+- `404 Not Found` - Resource not found  
+- `422 Unprocessable Entity` - Validation errors  
+- `429 Too Many Requests` - Rate limit exceeded  
+</Accordion>
 
-#### Client Errors
+<Accordion title="Server Errors">
+- `500 Internal Server Error` - Server error  
+- `502 Bad Gateway` - Upstream service error  
+- `503 Service Unavailable` - Service temporarily unavailable  
+</Accordion>
 
-- `400 Bad Request` - Invalid request data
-    - `401 Unauthorized` - Missing or invalid API key
-    - `403 Forbidden` - Insufficient permissions
-    - `404 Not Found` - Resource not found
-    - `422 Unprocessable Entity` - Validation errors
-    - `429 Too Many Requests` - Rate limit exceeded
-
-#### Server Errors
-
-- `500 Internal Server Error` - Server error
-    - `502 Bad Gateway` - Upstream service error
-    - `503 Service Unavailable` - Service temporarily unavailable
-
-
+---
 
 ## SDKs and Libraries
 
 We provide official SDKs for popular programming languages:
 
+- [JavaScript/Node.js](https://github.com/salsaasaservice/salsa-js)  
+- [Python](https://github.com/salsaasaservice/salsa-python)  
+- [PHP](https://github.com/salsaasaservice/salsa-php)  
 
-**[JavaScript/Node.js](https://github.com/salsaasaservice/salsa-js)**  
-Official SDK for JavaScript and Node.js applications.
-
-**[Python](https://github.com/salsaasaservice/salsa-python)**  
-Python SDK for data analysis and automation.
-
-**[PHP](https://github.com/salsaasaservice/salsa-php)**  
-PHP SDK for web applications and WordPress plugins.
-
-
+---
 
 ## Webhooks
 
@@ -384,10 +435,10 @@ Configure webhooks to receive real-time notifications about important events.
 
 ### Supported Events
 
-- `ingredient.low_stock` - When ingredient stock falls below threshold
-- `production.batch_completed` - When a production batch is completed
-- `quality.alert` - When quality scores fall below acceptable levels
-- `inventory.expiry_warning` - When ingredients are approaching expiry
+- `ingredient.low_stock` - When ingredient stock falls below threshold  
+- `production.batch_completed` - When a production batch is completed  
+- `quality.alert` - When quality scores fall below acceptable levels  
+- `inventory.expiry_warning` - When ingredients are approaching expiry  
 
 ### Webhook Configuration
 
@@ -405,24 +456,33 @@ POST /webhooks
 }
 ```
 
+---
+
 ## Testing
 
 Use our sandbox environment for testing your integrations:
 
 **Sandbox Base URL:**
+
 ```
-https://api-sandbox.salsaasaservice.com/v1
+https://api-sandbox.salsaasaservice.com/v2
 ```
 
-> **Warning:**
-**Sandbox Data**: The sandbox environment uses test data and doesn't affect your production account.
+<Callout type="warning">
+Sandbox data uses test records and does not affect your production account.
+</Callout>
 
+---
 
 ## Support
 
-Need help with the API? We're here to assist:
+Need help with the API?
 
-- 📧 **Email**: api-support@salsaasaservice.com
-- 📚 **Documentation**: Browse our comprehensive guides
-- 💬 **Developer Community**: Join our Discord server
-- 🎥 **Video Tutorials**: Watch integration tutorials
+- 📧 **Email**: api-support@salsaasaservice.com  
+- 📚 **Documentation**: Browse our guides  
+- 💬 **Developer Community**: Join our Discord server  
+- 🎥 **Video Tutorials**: Watch integration tutorials  
+
+<Callout type="tip">
+Use the contextual AI tools to generate examples in your preferred language (curl → Python/Node) or to draft a support ticket with context.
+</Callout>
