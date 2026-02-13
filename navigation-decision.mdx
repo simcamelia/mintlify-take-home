@@ -2,35 +2,32 @@
 
 ## Decision-Making Process
 
-When restructuring the documentation, my primary goal was clarity. I started by identifying the main user journeys: new users onboarding, developers implementing integrations, and existing users troubleshooting or reviewing changes.
+During the restructuring of the documentation phase, the way I saw things was to create an easy and clear to understand structure. For this, I've tried to put myself in the customer's shoes and thought about me as a new user, about onboarding, about possible integrations, existing troubleshooting guides, etc. 
 
-To reduce confusion, I made V2 the default and clearly labeled V1 as a legacy version. This ensures that most users are directed toward the most up-to-date documentation while still preserving access to older versions.
+Then as v2 is the latest version, I considered it to become the default version, and label V1 as legacy, this way when someone looks at the page, the person can understand what's the most up-to date version, but also can find help if that person is still using the legacy version. 
 
-I also mirrored the structure across English and French versions to maintain consistency. This prevents navigation differences between languages and supports easier long-term maintenance.
+As a French speaker myself, and working for many years with the French market, I know how important it is for them to see the same content in their language, so I've mirrored the structure across English and French versions. 
 
 ---
 
 ## Key User Experience Improvements
 
-The updated structure improves usability in several ways:
+The updated structure improves the easy and intuitive usage as follows: 
 
-- V2 appears first, guiding users toward the current version.
-- V1 is clearly labeled as legacy to prevent accidental use.
+- V2 appears first, showing users the current version(most up-to date).
+- V1 is labeled as legacy so it's easy to choose which versions you want/need to use depending on your system. 
 - Language sections are grouped logically and mirror each other.
-- Page order is consistent across versions, reducing relearning effort.
-- The sidebar avoids deep nesting to minimize cognitive load.
+- Page order is consistent across versions.
 
-These changes help users quickly find relevant information without needing to understand internal version history.
+These changes help users quickly find relevant information without needing to understand the internal version history.
 
 ---
 
 ## Trade-Offs Considered
 
-One key trade-off was between minimizing sidebar length and keeping version boundaries explicit. Combining versions under shared feature categories would shorten the sidebar, but it could introduce ambiguity and increase support overhead.
+I was thinking if I should minimize the sidebar length or keep the version boundaries pretty easy to see and clear. The easiest option for support consideration was to keep the version boundaries easy to see. 
 
-I chose explicit separation for clarity and maintainability.
-
-Another consideration was whether to use a language toggle approach instead of grouping languages in the sidebar. While a toggle can be elegant, grouping languages keeps structure transparent and easier to scale within the current setup.
+Then my next thought was about using a language toggle, but knowing how the French market works and what expectations French people have in general, I prefered to keep the structure transparent. 
 
 ---
 
@@ -38,8 +35,8 @@ Another consideration was whether to use a language toggle approach instead of g
 
 The navigation is structured to support:
 
-- Addition of V3 without restructuring existing content
-- Introduction of new languages (e.g., Spanish) using the same mirrored pattern
+- Addition of V3 without changing the structure of the already existing content
+- The possibility of introducing new languages (e.g., Spanish) using the same mirrored pattern
 - Clear version lifecycle management (current vs legacy)
 
 Because the JSON structure mirrors the folder structure, future updates can be implemented with minimal risk of breaking navigation.
