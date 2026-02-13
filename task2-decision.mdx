@@ -1,55 +1,94 @@
 ---
 title: "Task 2 — Component Decisions"
-description: "Brief explanation of component choices for v2 documentation."
+description: "Explanation of component choices for the v2 documentation refactor."
 ---
 
 # Task 2 — Component Decisions
 
-## Why These Components Were Chosen
+## Component Strategy
 
-To improve clarity and usability of the v2 documentation, I selected Mintlify components based on the **type of content** and how developers typically consume docs:
+For v2, the goal was not just to “add components,” but to apply them intentionally based on how developers consume documentation: scanning first, then drilling into detail.
 
-- **VersionBanner (custom React component)**  
-  Used at the top of each v2 page to clearly signal version context. This reduces confusion between v1 and v2 and improves orientation.
+### VersionBanner (Custom React Component)
 
-- **CardGroup**  
-  Used on the v2 landing page to create a visual navigation hub. Cards make it easier to choose a path (Getting Started vs API Reference) compared to a long list of links.
+Implemented to ensure clear version awareness across pages.  
+Because both v1 and v2 exist, visual version context reduces confusion and prevents accidental reference to legacy endpoints.
 
-- **Steps**  
-  Used in Getting Started flows to structure setup instructions clearly. This turns procedural text into an actionable onboarding journey.
-
-- **Tabs**  
-  Used for Request vs Response and multi-context examples. Tabs reduce scrolling and allow users to switch views without losing context.
-
-- **CodeGroup / CodeBlock**  
-  Used for multi-language and multi-environment examples (curl, Node, Python). This mirrors real developer workflows and keeps examples organized.
-
-- **Callouts (info, tip, warning)**  
-  Used to highlight prerequisites, rate limits, compatibility notes, and best practices without interrupting the main content flow.
-
-- **Accordion**  
-  Used for error catalogs to keep dense reference material collapsible and readable.
+This also supports localized messaging in French pages.
 
 ---
 
-## How These Enhancements Improve UX
+### CardGroup
 
-- Improve **scannability** and reduce cognitive load  
-- Separate instructional content from reference content  
-- Support real developer workflows (multi-language examples)  
-- Reduce vertical scrolling through structured components  
-- Clearly signal important information (warnings, tips, compatibility)
-
-Overall, the documentation shifts from basic MDX text to a more structured, product-grade experience.
+Used on the v2 landing page to create a visual entry hub.  
+Compared to plain link lists, cards improve discoverability and make primary paths (Getting Started, API Reference, Advanced Usage) immediately obvious.
 
 ---
 
-## Custom Styling Decisions
+### Steps
 
-The `VersionBanner` component was implemented as a lightweight custom React component to:
+Applied to onboarding and setup flows in *Getting Started*.  
+Procedural content becomes structured and sequential, turning static instructions into an actionable setup journey.
 
-- Provide consistent version awareness across pages  
-- Visually distinguish current vs legacy versions  
-- Allow localized messaging in French pages  
+---
 
-Inline styling was intentionally kept minimal to ensure maintainability while still providing clear visual hierarchy.
+### Tabs
+
+Used for:
+- Request vs Response examples  
+- Multi-context API examples  
+
+Tabs reduce vertical scrolling and allow side-by-side conceptual grouping without overwhelming the page.
+
+---
+
+### CodeGroup / CodeBlock
+
+Used for multi-language and multi-environment examples (curl, Node, Python).
+
+This reflects real developer workflows and keeps implementation examples organized without duplicating explanatory text.
+
+---
+
+### Callouts (info, tip, warning)
+
+Used to:
+- Highlight compatibility notes  
+- Surface rate limits  
+- Emphasize migration considerations  
+- Provide contextual guidance  
+
+Callouts isolate important information without interrupting narrative flow.
+
+---
+
+### Accordion
+
+Used for dense reference material (e.g., error codes).  
+This keeps the page scannable while preserving full detail for users who need it.
+
+---
+
+## UX Improvements
+
+The refactor improves:
+
+- Scannability and information hierarchy  
+- Developer orientation (clear version context)  
+- Reduced cognitive load  
+- Multi-language example clarity  
+- Structured onboarding flow  
+
+The documentation moves from flat MDX text to a structured, product-grade developer experience.
+
+---
+
+## Custom Styling Rationale
+
+The custom `VersionBanner` was intentionally lightweight:
+
+- Minimal inline styling for maintainability  
+- Clear visual distinction between current and legacy versions  
+- Reusable across English and French pages  
+
+The goal was consistency and clarity — not heavy customization — while demonstrating extensibility within Mintlify’s ecosystem.
