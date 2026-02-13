@@ -1,0 +1,55 @@
+---
+title: "Task 2 — Component Decisions"
+description: "Brief explanation of component choices for v2 documentation."
+---
+
+# Task 2 — Component Decisions
+
+## Why These Components Were Chosen
+
+To improve clarity and usability of the v2 documentation, I selected Mintlify components based on the **type of content** and how developers typically consume docs:
+
+- **VersionBanner (custom React component)**  
+  Used at the top of each v2 page to clearly signal version context. This reduces confusion between v1 and v2 and improves orientation.
+
+- **CardGroup**  
+  Used on the v2 landing page to create a visual navigation hub. Cards make it easier to choose a path (Getting Started vs API Reference) compared to a long list of links.
+
+- **Steps**  
+  Used in Getting Started flows to structure setup instructions clearly. This turns procedural text into an actionable onboarding journey.
+
+- **Tabs**  
+  Used for Request vs Response and multi-context examples. Tabs reduce scrolling and allow users to switch views without losing context.
+
+- **CodeGroup / CodeBlock**  
+  Used for multi-language and multi-environment examples (curl, Node, Python). This mirrors real developer workflows and keeps examples organized.
+
+- **Callouts (info, tip, warning)**  
+  Used to highlight prerequisites, rate limits, compatibility notes, and best practices without interrupting the main content flow.
+
+- **Accordion**  
+  Used for error catalogs to keep dense reference material collapsible and readable.
+
+---
+
+## How These Enhancements Improve UX
+
+- Improve **scannability** and reduce cognitive load  
+- Separate instructional content from reference content  
+- Support real developer workflows (multi-language examples)  
+- Reduce vertical scrolling through structured components  
+- Clearly signal important information (warnings, tips, compatibility)
+
+Overall, the documentation shifts from basic MDX text to a more structured, product-grade experience.
+
+---
+
+## Custom Styling Decisions
+
+The `VersionBanner` component was implemented as a lightweight custom React component to:
+
+- Provide consistent version awareness across pages  
+- Visually distinguish current vs legacy versions  
+- Allow localized messaging in French pages  
+
+Inline styling was intentionally kept minimal to ensure maintainability while still providing clear visual hierarchy.
