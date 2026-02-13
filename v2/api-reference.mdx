@@ -8,10 +8,9 @@ import {
   Callout,
   Card,
   CardGroup,
-  CodeBlock,
   CodeGroup,
-  Tab,
-  Tabs
+  Tabs,
+  Tab
 } from "mintlify/components";
 
 import VersionBanner from "../snippets/VersionBanner";
@@ -27,17 +26,17 @@ The v2.0 API adds GraphQL support, enhanced webhooks, new AI forecasting endpoin
 ## Base URLs
 
 <CodeGroup>
-  <CodeBlock language="text" title="Production">
-{`https://api.salsaasaservice.com/v2`}
-  </CodeBlock>
+```text Production
+https://api.salsaasaservice.com/v2
+```
 
-  <CodeBlock language="text" title="GraphQL">
-{`https://api.salsaasaservice.com/graphql`}
-  </CodeBlock>
+```text GraphQL
+https://api.salsaasaservice.com/graphql
+```
 
-  <CodeBlock language="text" title="Sandbox">
-{`https://api-sandbox.salsaasaservice.com/v2`}
-  </CodeBlock>
+```text Sandbox
+https://api-sandbox.salsaasaservice.com/v2
+```
 </CodeGroup>
 
 <Callout type="info">
@@ -57,20 +56,20 @@ Get your API key from the <a href="https://app.salsaasaservice.com/settings/api"
 ### Authorization Header
 
 <CodeGroup>
-  <CodeBlock language="http" title="Header">
-{`Authorization: Bearer YOUR_API_KEY`}
-  </CodeBlock>
+```http Header
+Authorization: Bearer YOUR_API_KEY
+```
 
-  <CodeBlock language="bash" title="cURL Example">
-{`curl -H "Authorization: Bearer YOUR_API_KEY" \\
-  https://api.salsaasaservice.com/v2/ingredients`}
-  </CodeBlock>
+```bash cURL Example
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.salsaasaservice.com/v2/ingredients
+```
 
-  <CodeBlock language="javascript" title="Fetch Example">
-{`fetch("https://api.salsaasaservice.com/v2/ingredients", {
+```javascript Fetch Example
+fetch("https://api.salsaasaservice.com/v2/ingredients", {
   headers: { Authorization: "Bearer YOUR_API_KEY" }
-});`}
-  </CodeBlock>
+});
+```
 </CodeGroup>
 
 ---
@@ -85,11 +84,11 @@ Get your API key from the <a href="https://app.salsaasaservice.com/settings/api"
 Monitor the rate limit headers in responses to avoid throttling.
 </Callout>
 
-<CodeBlock language="http" title="Rate Limit Headers">
-{`X-RateLimit-Limit: 1000
+```http Rate Limit Headers
+X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999
-X-RateLimit-Reset: 1640995200`}
-</CodeBlock>
+X-RateLimit-Reset: 1640995200
+```
 
 ---
 
@@ -123,14 +122,14 @@ Retrieve all ingredients.
 
 <Tabs>
   <Tab title="Request">
-    <CodeBlock language="http">
-{`GET /ingredients`}
-    </CodeBlock>
+```http
+GET /ingredients
+```
   </Tab>
 
   <Tab title="Response">
-    <CodeBlock language="json">
-{`{
+```json
+{
   "data": [
     {
       "id": "ing_123",
@@ -146,8 +145,8 @@ Retrieve all ingredients.
     "per_page": 50,
     "total": 1
   }
-}`}
-    </CodeBlock>
+}
+```
   </Tab>
 </Tabs>
 
@@ -159,24 +158,28 @@ Update ingredient stock.
 
 <Tabs>
   <Tab title="Request">
-    <CodeBlock language="json">
-{`{
+```http
+PUT /ingredients/{ingredient_id}/stock
+```
+
+```json
+{
   "quantity": 30.0,
   "unit": "lbs",
   "notes": "New shipment received"
-}`}
-    </CodeBlock>
+}
+```
   </Tab>
 
   <Tab title="Response">
-    <CodeBlock language="json">
-{`{
+```json
+{
   "id": "ing_123",
   "current_stock": 30.0,
   "unit": "lbs",
   "updated_at": "2024-01-15T11:00:00Z"
-}`}
-    </CodeBlock>
+}
+```
   </Tab>
 </Tabs>
 
@@ -186,21 +189,25 @@ Update ingredient stock.
 
 ### GET /recipes
 
-<CodeBlock language="http">
-{`GET /recipes`}
-</CodeBlock>
+```http
+GET /recipes
+```
 
 ### POST /recipes
 
-<CodeBlock language="json" title="Request Body">
-{`{
+```http
+POST /recipes
+```
+
+```json Request Body
+{
   "name": "Spicy Chipotle Salsa",
   "spice_level": "hot",
   "batch_size": 3.0,
   "yield": "gallons",
   "prep_time": 45
-}`}
-</CodeBlock>
+}
+```
 
 ---
 
@@ -208,13 +215,17 @@ Update ingredient stock.
 
 ### POST /production/batches
 
-<CodeBlock language="json" title="Request Body">
-{`{
+```http
+POST /production/batches
+```
+
+```json Request Body
+{
   "recipe_id": "rec_456",
   "batch_number": "BATCH-2024-001",
   "planned_quantity": 5.0
-}`}
-</CodeBlock>
+}
+```
 
 ---
 
@@ -224,19 +235,19 @@ Update ingredient stock.
 
 <Tabs>
   <Tab title="Request">
-    <CodeBlock language="http">
-{`GET /analytics/production?period=30d`}
-    </CodeBlock>
+```http
+GET /analytics/production?period=30d
+```
   </Tab>
 
   <Tab title="Response">
-    <CodeBlock language="json">
-{`{
+```json
+{
   "period": "30d",
   "total_batches": 45,
   "average_quality_score": 8.7
-}`}
-    </CodeBlock>
+}
+```
   </Tab>
 </Tabs>
 
@@ -246,14 +257,14 @@ Update ingredient stock.
 
 ### Error Response Format
 
-<CodeBlock language="json">
-{`{
+```json
+{
   "error": {
     "code": "INVALID_REQUEST",
     "message": "The request body is missing required fields"
   }
-}`}
-</CodeBlock>
+}
+```
 
 ### Common Error Codes
 
@@ -276,13 +287,17 @@ Update ingredient stock.
 
 ## Webhooks
 
-<CodeBlock language="json" title="Create Webhook Request">
-{`{
+```http
+POST /webhooks
+```
+
+```json Create Webhook Request
+{
   "url": "https://your-app.com/webhooks/salsa",
   "events": ["ingredient.low_stock", "production.batch_completed"],
   "secret": "your_webhook_secret"
-}`}
-</CodeBlock>
+}
+```
 
 <Callout type="tip">
 Use the contextual AI tools to convert examples between curl, Python, and Node.js or to draft support tickets with request context.
