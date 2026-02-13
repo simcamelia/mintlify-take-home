@@ -3,7 +3,7 @@ title: "API Reference - v2.0"
 description: "Complete API documentation for v2.0 with REST and GraphQL support"
 ---
 
-import VersionBanner from "../snippets/VersionBanner";
+import VersionBanner from "/snippets/VersionBanner";
 
 # Salsa as a Service API v2.0
 
@@ -15,20 +15,19 @@ The v2.0 API adds GraphQL support, enhanced webhooks, new AI forecasting endpoin
 
 ## Base URLs
 
-**REST (Production)**
-```text
+<CodeGroup>
+```text Production
 https://api.salsaasaservice.com/v2
 ```
 
-**GraphQL**
-```text
+```text GraphQL
 https://api.salsaasaservice.com/graphql
 ```
 
-**REST (Sandbox)**
-```text
+```text Sandbox
 https://api-sandbox.salsaasaservice.com/v2
 ```
+</CodeGroup>
 
 <Callout type="info">
 New in v2.0: GraphQL support allows flexible nested queries and fewer API round trips.
@@ -46,22 +45,22 @@ Get your API key from the <a href="https://app.salsaasaservice.com/settings/api"
 
 ### Authorization Header
 
-```http
+<CodeGroup>
+```http Header
 Authorization: Bearer YOUR_API_KEY
 ```
 
-**cURL**
-```bash
+```bash cURL Example
 curl -H "Authorization: Bearer YOUR_API_KEY" \
   https://api.salsaasaservice.com/v2/ingredients
 ```
 
-**Fetch**
-```javascript
+```javascript Fetch Example
 fetch("https://api.salsaasaservice.com/v2/ingredients", {
   headers: { Authorization: "Bearer YOUR_API_KEY" }
 });
 ```
+</CodeGroup>
 
 ---
 
@@ -71,9 +70,7 @@ fetch("https://api.salsaasaservice.com/v2/ingredients", {
 - **Professional Plan**: 10,000 requests per hour  
 - **Enterprise Plan**: 100,000 requests per hour  
 
-Rate limit headers are included in all responses:
-
-```http
+```http Rate Limit Headers
 X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999
 X-RateLimit-Reset: 1640995200
@@ -83,14 +80,38 @@ X-RateLimit-Reset: 1640995200
 
 ## Core Endpoints
 
-### Inventory Management {#inventory}
+<CardGroup>
+  <Card title="Inventory Management" href="#inventory">
+    Ingredients, stock levels, and freshness tracking.
+  </Card>
 
-#### Get All Ingredients
+  <Card title="Recipe Management" href="#recipes">
+    Create, update, and manage recipes and workflows.
+  </Card>
+
+  <Card title="Production Tracking" href="#production">
+    Track batches, quality metrics, and yield data.
+  </Card>
+
+  <Card title="Analytics & Reporting" href="#analytics">
+    Production and inventory insights for decision-making.
+  </Card>
+</CardGroup>
+
+---
+
+## Inventory Management {#inventory}
+
+### Get All Ingredients
+
+<Tabs>
+  <Tab title="Request">
 ```http
 GET /ingredients
 ```
+  </Tab>
 
-**Response**
+  <Tab title="Response">
 ```json
 {
   "data": [
@@ -110,8 +131,13 @@ GET /ingredients
   }
 }
 ```
+  </Tab>
+</Tabs>
 
-#### Update Ingredient Stock
+### Update Ingredient Stock
+
+<Tabs>
+  <Tab title="Request">
 ```http
 PUT /ingredients/{ingredient_id}/stock
 ```
@@ -123,57 +149,34 @@ PUT /ingredients/{ingredient_id}/stock
   "notes": "New shipment received"
 }
 ```
+  </Tab>
 
----
-
-### Recipe Management {#recipes}
-
-#### Get All Recipes
-```http
-GET /recipes
-```
-
-#### Create New Recipe
-```http
-POST /recipes
-```
-
+  <Tab title="Response">
 ```json
 {
-  "name": "Spicy Chipotle Salsa",
-  "spice_level": "hot",
-  "batch_size": 3.0,
-  "yield": "gallons",
-  "prep_time": 45
+  "id": "ing_123",
+  "current_stock": 30.0,
+  "unit": "lbs",
+  "updated_at": "2024-01-15T11:00:00Z"
 }
 ```
+  </Tab>
+</Tabs>
 
 ---
 
-### Production Tracking {#production}
+## Analytics & Reporting {#analytics}
 
-#### Start Production Batch
-```http
-POST /production/batches
-```
+### Get Production Analytics
 
-```json
-{
-  "recipe_id": "rec_456",
-  "batch_number": "BATCH-2024-001",
-  "planned_quantity": 5.0
-}
-```
-
----
-
-### Analytics & Reporting {#analytics}
-
-#### Get Production Analytics
+<Tabs>
+  <Tab title="Request">
 ```http
 GET /analytics/production?period=30d
 ```
+  </Tab>
 
+  <Tab title="Response">
 ```json
 {
   "period": "30d",
@@ -181,6 +184,8 @@ GET /analytics/production?period=30d
   "average_quality_score": 8.7
 }
 ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -195,33 +200,23 @@ GET /analytics/production?period=30d
 }
 ```
 
-Common error codes:
-- 400 Bad Request  
-- 401 Unauthorized  
-- 403 Forbidden  
-- 404 Not Found  
-- 422 Validation error  
-- 429 Too Many Requests  
-- 500 Internal Server Error  
-- 502 Bad Gateway  
-- 503 Service Unavailable  
+<Accordion title="Client Errors">
+- `400` Bad Request  
+- `401` Unauthorized  
+- `403` Forbidden  
+- `404` Not Found  
+- `422` Validation error  
+- `429` Rate limit exceeded  
+</Accordion>
+
+<Accordion title="Server Errors">
+- `500` Internal Server Error  
+- `502` Bad Gateway  
+- `503` Service Unavailable  
+</Accordion>
 
 ---
 
-## Webhooks
-
-```http
-POST /webhooks
-```
-
-```json
-{
-  "url": "https://your-app.com/webhooks/salsa",
-  "events": ["ingredient.low_stock", "production.batch_completed"],
-  "secret": "your_webhook_secret"
-}
-```
-
 <Callout type="tip">
-Use the contextual AI tools to convert examples between curl, Python, and Node.js or to draft support tickets with request context.
+If this page ever 404s again, check the GitHub file didn’t lose newlines — broken frontmatter or malformed MDX will prevent Mintlify from building the route.
 </Callout>
