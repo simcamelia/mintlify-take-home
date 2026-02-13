@@ -7,9 +7,13 @@ import VersionBanner from "/snippets/VersionBanner";
 
 # Démarrage avec Salsa as a Service v2.0
 
-<VersionBanner version="v2" status="current" />
+<VersionBanner
+  version="v2"
+  status="current"
+  note="Vous consultez la version la plus récente de la documentation."
+/>
 
-Bienvenue sur **v2.0** ! Ce guide vous aide à configurer votre compte et à exploiter les nouvelles fonctionnalités IA, les capteurs IoT et les intégrations avancées.
+Bienvenue sur **v2.0**. Ce guide vous accompagne dans la configuration de votre compte, l’activation des fonctionnalités IA et l’intégration de vos systèmes.
 
 ---
 
@@ -18,8 +22,7 @@ Bienvenue sur **v2.0** ! Ce guide vous aide à configurer votre compte et à exp
 Avant de commencer, assurez-vous d’avoir :
 
 - Une adresse e-mail professionnelle valide  
-- L’accès aux systèmes de votre restaurant (POS, inventaire, etc.)  
-- Une connaissance de base de vos opérations actuelles  
+- L’accès aux systèmes de votre restaurant (POS, inventaire, ERP)  
 - Les droits administrateur pour configurer les intégrations  
 - (Optionnel) Des capteurs IoT pour la surveillance qualité  
 
@@ -29,7 +32,7 @@ v2.0 inclut un assistant de configuration intelligent qui analyse votre profil e
 
 ---
 
-# Assistant de configuration rapide
+## Assistant de configuration rapide
 
 <Steps>
   <Step title="Créer votre compte">
@@ -45,7 +48,7 @@ v2.0 inclut un assistant de configuration intelligent qui analyse votre profil e
   </Step>
 
   <Step title="Importer les données historiques">
-    Importez vos données de ventes et production pour entraîner le moteur IA.
+    Importez au moins 90 jours de données pour entraîner les modèles IA.
   </Step>
 
   <Step title="Activer les fonctionnalités IA">
@@ -55,9 +58,9 @@ v2.0 inclut un assistant de configuration intelligent qui analyse votre profil e
 
 ---
 
-# Configuration du compte
+## Configuration du compte
 
-## Étape 1 : Création de compte
+### Étape 1 : Création du compte
 
 1. Visitez la [page d'inscription](https://app.salsaasaservice.com/signup)  
 2. Choisissez votre méthode d’authentification :
@@ -68,22 +71,22 @@ v2.0 inclut un assistant de configuration intelligent qui analyse votre profil e
 4. Finalisez la vérification entreprise  
 
 <Callout type="tip">
-v2.0 prend en charge l’authentification biométrique, les clés matérielles et la connexion sans mot de passe.
+Les clients entreprise peuvent activer le SSO dès l’inscription pour un accès simplifié des équipes.
 </Callout>
 
 ---
 
-# Configuration des fonctionnalités IA
+## Configuration des fonctionnalités IA
 
-## Prévision de demande
+### Prévision de demande
 
 <Steps>
   <Step title="Activer la fonctionnalité">
-    Allez dans **Fonctionnalités IA → Prévision de demande** et activez-la.
+    Accédez à **Fonctionnalités IA → Prévision de demande** et activez-la.
   </Step>
 
   <Step title="Connecter les sources de données">
-    Liez votre POS, système de réservation et sources externes si nécessaires.
+    Liez votre POS, système de réservation et API externes si nécessaire.
   </Step>
 
   <Step title="Importer les données historiques">
@@ -96,21 +99,64 @@ v2.0 prend en charge l’authentification biométrique, les clés matérielles e
 </Steps>
 
 <Callout type="info">
-L’IA atteint 70–80% de précision avec 90 jours de données et peut dépasser 95% après apprentissage continu.
+L’IA atteint 70–80% de précision avec 90 jours de données et peut dépasser 95% grâce à l’apprentissage continu.
 </Callout>
 
 ---
 
 ## Exemple de configuration qualité via API
 
-<CodeGroup>
-```javascript Node.js
-const qualityConfig = {
+<Tabs>
+  <Tab title="Node.js">
+    <CodeBlock language="javascript">
+{`const qualityConfig = {
   enabled: true,
   monitoring_interval: "5m",
   thresholds: {
     temperature: { min: 35, max: 40, unit: "F" },
     freshness_score: { min: 8.0 },
     consistency: { min: 7.5 }
-  }
+  },
+  alert_channels: ["email", "sms", "push", "slack"]
 };
+
+await fetch("https://api.salsaasaservice.com/v2/quality/config", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(qualityConfig)
+});`}
+    </CodeBlock>
+  </Tab>
+
+  <Tab title="Python">
+    <CodeBlock language="python">
+{`import requests
+
+quality_config = {
+  "enabled": True,
+  "monitoring_interval": "5m",
+  "thresholds": {
+    "temperature": {"min": 35, "max": 40, "unit": "F"},
+    "freshness_score": {"min": 8.0},
+    "consistency": {"min": 7.5}
+  },
+  "alert_channels": ["email", "sms", "push", "slack"]
+}
+
+response = requests.post(
+  "https://api.salsaasaservice.com/v2/quality/config",
+  headers={"Authorization": "Bearer YOUR_API_KEY"},
+  json=quality_config
+)
+
+print(response.json())`}
+    </CodeBlock>
+  </Tab>
+</Tabs>
+
+<Callout type="warning">
+Assurez-vous d’utiliser une clé API v2. Les clés v1 ne sont pas compatibles avec les endpoints v2.
+</Callout>
