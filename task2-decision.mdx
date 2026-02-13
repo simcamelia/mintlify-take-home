@@ -7,12 +7,12 @@ description: "Explanation of component choices for the v2 documentation refactor
 
 ## Component Strategy
 
-For v2, the goal was not just to “add components,” but to apply them intentionally based on how developers consume documentation: scanning first, then drilling into detail.
+For v2, the goal was not just to “add components,” but to apply them intentionally based on how developers use documentation: scanning first, then diving into deeper details. 
 
 ### VersionBanner (Custom React Component)
 
 Implemented to ensure clear version awareness across pages.  
-Because both v1 and v2 exist, visual version context reduces confusion and prevents accidental reference to legacy endpoints.
+Because both v1 and v2 exist, visual version context will reduce the confusion and can prevent accidental reference to legacy endpoints.
 
 This also supports localized messaging in French pages.
 
@@ -21,14 +21,14 @@ This also supports localized messaging in French pages.
 ### CardGroup
 
 Used on the v2 landing page to create a visual entry hub.  
-Compared to plain link lists, cards improve discoverability and make primary paths (Getting Started, API Reference, Advanced Usage) immediately obvious.
+Cards improve discoverability and make primary paths (Getting Started, API Reference, Advanced Usage) obvious and more intuitive. 
 
 ---
 
 ### Steps
 
 Applied to onboarding and setup flows in *Getting Started*.  
-Procedural content becomes structured and sequential, turning static instructions into an actionable setup journey.
+By doing this the content became structured and sequential, and this can turn instructions into an easy to follow way of doing things. 
 
 ---
 
@@ -38,7 +38,7 @@ Used for:
 - Request vs Response examples  
 - Multi-context API examples  
 
-Tabs reduce vertical scrolling and allow side-by-side conceptual grouping without overwhelming the page.
+Tabs reduce vertical scrolling and allow side-by-side grouping without overwhelming the page.
 
 ---
 
@@ -91,4 +91,3 @@ The custom `VersionBanner` was intentionally lightweight:
 - Clear visual distinction between current and legacy versions  
 - Reusable across English and French pages  
 
-The goal was consistency and clarity — not heavy customization — while demonstrating extensibility within Mintlify’s ecosystem.
