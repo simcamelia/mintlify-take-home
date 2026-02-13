@@ -7,7 +7,11 @@ import VersionBanner from "/snippets/VersionBanner";
 
 # Salsa as a Service — v2
 
-<VersionBanner version="v2" status="current" />
+<VersionBanner
+  version="v2"
+  status="current"
+  note="Vous consultez la version la plus récente de la documentation."
+/>
 
 Bienvenue à la prochaine évolution de la gestion de salsa. La version **v2** apporte des fonctionnalités avancées (IA, intégrations, observabilité) pour améliorer la qualité, réduire le gaspillage et accélérer l’exécution en production.
 
@@ -64,18 +68,18 @@ Salsa as a Service v2 représente une mise à niveau significative pour les opé
   <Tab title="Performance">
     - **Plus rapide** : architecture optimisée et requêtes améliorées  
     - **Synchronisation en temps réel** : mises à jour rapides et cohérentes  
-    - **Disponibilité élevée** : approche orientée production avec résilience  
+    - **Haute disponibilité** : approche orientée production avec résilience  
   </Tab>
 
   <Tab title="IA & Automatisation">
     - **Prévision de demande** : anticipation 7–30 jours (selon configuration)  
     - **Détection d’anomalies** : identification proactive des écarts de qualité  
-    - **Optimisation** : recommandations pour réduire le gaspillage et améliorer la cohérence  
+    - **Optimisation intelligente** : réduction du gaspillage et amélioration de la cohérence  
   </Tab>
 
   <Tab title="Entreprise">
     - **Gestion multi-sites** : adaptée aux chaînes et franchisés  
-    - **Contrôles d’accès** : rôles et permissions plus granulaires  
+    - **Contrôles d’accès granulaires** : rôles et permissions avancés  
     - **Conformité & audit** : journalisation et bonnes pratiques de sécurité  
   </Tab>
 </Tabs>
@@ -85,28 +89,28 @@ Salsa as a Service v2 représente une mise à niveau significative pour les opé
 ## Fonctionnalités principales
 
 ### 🤖 Intelligence alimentée par IA
-- Prévision de demande et aide à la planification
-- Détection d’anomalies qualité et alertes
-- Recommandations d’optimisation des coûts
-- Assistance à l’ajustement des recettes
+- Prévision de demande et aide à la planification  
+- Détection d’anomalies qualité et alertes  
+- Recommandations d’optimisation des coûts  
+- Assistance à l’ajustement des recettes  
 
 ### 📡 IoT et surveillance en temps réel
-- Capteurs température / humidité
-- Suivi de fraîcheur (selon intégrations)
-- Surveillance d’atelier et alertes en temps réel
-- Données opérationnelles pour analyse
+- Capteurs température / humidité  
+- Suivi de fraîcheur (selon intégrations)  
+- Surveillance d’atelier et alertes en temps réel  
+- Données opérationnelles pour analyse  
 
 ### 🌐 Échelle et sécurité d’entreprise
-- Approche orientée disponibilité et résilience
-- Sécurité renforcée (ex. SSO/MFA selon offre)
-- Journalisation et audit
-- Support des environnements multi-sites
+- Approche orientée disponibilité et résilience  
+- Sécurité renforcée (SSO/MFA selon offre)  
+- Journalisation et audit  
+- Support des environnements multi-sites  
 
 ### 🔗 Intégrations universelles
-- Intégrations POS et outils opérationnels
-- Connectivité ERP (selon intégrations disponibles)
-- Supply chain et BI
-- Automatisation via API
+- Intégrations POS et outils opérationnels  
+- Connectivité ERP (selon intégrations disponibles)  
+- Supply chain et BI  
+- Automatisation via API  
 
 ---
 
@@ -117,12 +121,18 @@ Les clients v1 peuvent migrer vers v2 sans interruption majeure si la migration 
 Consultez la documentation v1 (Legacy) dans la barre latérale si vous devez comparer.
 </Callout>
 
+<Callout type="warning">
+Les clés et endpoints v1 ne sont pas compatibles avec v2. Assurez-vous de générer de nouvelles clés API avant la migration.
+</Callout>
+
 ---
 
 ## URL de base de l’API
 
-Toutes les requêtes API v2 utilisent l’URL de base :
+Toutes les requêtes API v2 utilisent l’URL suivante :
 
 <CodeGroup>
-```text URL de base
-https://api.salsaasaservice.com/v2
+  <CodeBlock language="text" title="URL de base">
+{`https://api.salsaasaservice.com/v2`}
+  </CodeBlock>
+</CodeGroup>
