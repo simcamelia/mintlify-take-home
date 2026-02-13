@@ -3,66 +3,85 @@ title: "Référence API - v2.0"
 description: "Documentation API complète pour v2.0 avec support REST et GraphQL"
 ---
 
-import VersionBanner from "/snippets/VersionBanner";
-
 # API Salsa as a Service v2.0
 
-<VersionBanner
-  version="v2"
-  status="current"
-  note="Vous consultez la version la plus récente de l’API v2."
-/>
-
 L'API v2.0 ajoute le support GraphQL, un système de webhooks amélioré, des endpoints de prévision IA et une gestion avancée des capteurs IoT.
+
+<Callout type="info">
+**Nouveau dans v2.0 :** endpoint GraphQL disponible à `https://api.salsaasaservice.com/graphql`.
+</Callout>
 
 ---
 
 ## URL de base
 
-<CodeGroup>
-  <CodeBlock language="text" title="Production">
-{`https://api.salsaasaservice.com/v2`}
-  </CodeBlock>
+**REST (Production)**
 
-  <CodeBlock language="text" title="GraphQL">
-{`https://api.salsaasaservice.com/graphql`}
-  </CodeBlock>
+```text
+https://api.salsaasaservice.com/v2
+```
 
-  <CodeBlock language="text" title="Sandbox">
-{`https://api-sandbox.salsaasaservice.com/v2`}
-  </CodeBlock>
-</CodeGroup>
+**GraphQL**
 
-<Callout type="info">
-Nouveau dans v2.0 : endpoint GraphQL disponible avec support des abonnements en temps réel.
-</Callout>
+```text
+https://api.salsaasaservice.com/graphql
+```
+
+**Sandbox (REST)**
+
+```text
+https://api-sandbox.salsaasaservice.com/v2
+```
 
 ---
 
-## Authentification
+## Navigation rapide
+
+<CardGroup>
+  <Card title="Authentification" href="#authentification">
+    Clés API, en-têtes et exemples.
+  </Card>
+  <Card title="Limites de taux" href="#limites-de-taux">
+    Quotas + en-têtes de réponse.
+  </Card>
+  <Card title="Prévisions IA" href="#previsions-ia">
+    Endpoint de prévision et entraînement.
+  </Card>
+  <Card title="Webhooks" href="#webhooks">
+    Événements et configuration.
+  </Card>
+</CardGroup>
+
+---
+
+## Authentification {#authentification}
 
 Toutes les requêtes API nécessitent une authentification avec votre clé API.
 
+<Callout type="info">
+**Clé API :** récupérez votre clé via les <a href="https://app.salsaasaservice.com/settings/api">Developer Settings</a> dans le dashboard.
+</Callout>
+
 ### En-tête d'authentification
 
-<CodeGroup>
-  <CodeBlock language="http" title="Header">
-{`Authorization: Bearer VOTRE_CLE_API`}
-  </CodeBlock>
+```http
+Authorization: Bearer VOTRE_CLE_API
+```
 
-  <CodeBlock language="bash" title="Exemple cURL">
-{`curl -H "Authorization: Bearer VOTRE_CLE_API" \\
-https://api.salsaasaservice.com/v2/ai/forecast`}
-  </CodeBlock>
-</CodeGroup>
+**Exemple cURL**
+
+```bash
+curl -H "Authorization: Bearer VOTRE_CLE_API" \
+  https://api.salsaasaservice.com/v2/ai/forecast?location=loc_123&days=7
+```
 
 <Callout type="warning">
-Les clés API v1.0 ne fonctionnent pas avec v2.0. Générez une nouvelle clé depuis **Paramètres → Développeur → API v2.0**.
+Les clés API v1 ne sont pas compatibles avec v2. Générez une nouvelle clé v2 depuis votre dashboard.
 </Callout>
 
 ---
 
-## Limites de taux
+## Limites de taux {#limites-de-taux}
 
 - **Plan Starter** : 10 000 requêtes / heure  
 - **Plan Professionnel** : 100 000 requêtes / heure  
@@ -74,18 +93,16 @@ Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
 
 ---
 
-# API GraphQL (Nouveau)
+## API GraphQL (Nouveau)
 
-## Endpoint GraphQL
+**Endpoint**
+```text
+https://api.salsaasaservice.com/graphql
+```
 
-<CodeBlock language="text">
-{`https://api.salsaasaservice.com/graphql`}
-</CodeBlock>
-
-## Exemple de requête
-
-<CodeBlock language="graphql">
-{`query GetProductionForecast {
+**Exemple de requête**
+```graphql
+query GetProductionForecast {
   forecast(location: "loc_123", days: 7) {
     date
     recipes {
@@ -98,13 +115,12 @@ Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
       }
     }
   }
-}`}
-</CodeBlock>
+}
+```
 
-## Abonnements en temps réel
-
-<CodeBlock language="graphql">
-{`subscription OnQualityAlert {
+**Abonnements (temps réel)**
+```graphql
+subscription OnQualityAlert {
   qualityAlert(location: "loc_123") {
     id
     severity
@@ -112,53 +128,28 @@ Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
     message
     timestamp
   }
-}`}
-</CodeBlock>
+}
+```
 
-## Explorer GraphQL
-
-<CodeBlock language="text">
-{`https://api.salsaasaservice.com/graphql/explorer`}
-</CodeBlock>
-
----
-
-# API REST
-
-<CardGroup>
-  <Card title="Prévisions IA" href="#previsions-ia">
-    Accédez aux prévisions de demande alimentées par IA.
-  </Card>
-
-  <Card title="Capteurs IoT" href="#capteurs-iot">
-    Gérez capteurs et lectures.
-  </Card>
-
-  <Card title="Production" href="#production">
-    Suivez les lots et la qualité.
-  </Card>
-
-  <Card title="Webhooks" href="#webhooks">
-    Notifications en temps réel améliorées.
-  </Card>
-</CardGroup>
+**Explorer**
+```text
+https://api.salsaasaservice.com/graphql/explorer
+```
 
 ---
 
-## Prévisions IA {#previsions-ia}
+## API REST
 
-### Obtenir les prévisions de demande
+### Prévisions IA {#previsions-ia}
 
-<Tabs>
-  <Tab title="Requête">
-    <CodeBlock language="http">
-{`GET /v2/ai/forecast?location=loc_123&days=7`}
-    </CodeBlock>
-  </Tab>
+**Obtenir les prévisions**
+```http
+GET /ai/forecast?location=loc_123&days=7
+```
 
-  <Tab title="Réponse">
-    <CodeBlock language="json">
-{`{
+**Exemple de réponse**
+```json
+{
   "forecast_period": {
     "start_date": "2024-01-20",
     "end_date": "2024-01-27",
@@ -177,33 +168,26 @@ Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
       }
     }
   ]
-}`}
-    </CodeBlock>
-  </Tab>
-</Tabs>
+}
+```
 
-### Entraîner le modèle IA
-
-<CodeBlock language="http">
-{`POST /v2/ai/forecast/train`}
-</CodeBlock>
+**Entraîner le modèle**
+```http
+POST /ai/forecast/train
+```
 
 ---
 
-## Capteurs IoT {#capteurs-iot}
+### Capteurs IoT {#capteurs-iot}
 
-### Obtenir tous les capteurs
+**Lister les capteurs**
+```http
+GET /iot/sensors?location=loc_123
+```
 
-<Tabs>
-  <Tab title="Requête">
-    <CodeBlock language="http">
-{`GET /v2/iot/sensors?location=loc_123`}
-    </CodeBlock>
-  </Tab>
-
-  <Tab title="Réponse">
-    <CodeBlock language="json">
-{`{
+**Exemple de réponse**
+```json
+{
   "sensors": [
     {
       "id": "sensor_001",
@@ -211,89 +195,74 @@ Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
       "status": "online"
     }
   ]
-}`}
-    </CodeBlock>
-  </Tab>
-</Tabs>
+}
+```
 
-### Obtenir les lectures
+**Lire les mesures**
+```http
+GET /iot/sensors/{sensor_id}/readings?start_date=2024-01-01&end_date=2024-01-31
+```
 
-<CodeBlock language="http">
-{`GET /v2/iot/sensors/{sensor_id}/readings?start_date=2024-01-01&end_date=2024-01-31`}
-</CodeBlock>
+**Configurer une alerte**
+```http
+POST /iot/sensors/{sensor_id}/alerts
+```
 
-### Configurer les alertes
-
-<CodeBlock language="json">
-{`{
+```json
+{
   "alert_type": "threshold",
   "conditions": {
     "min_value": 2.0,
-    "max_value": 4.0
+    "max_value": 4.0,
+    "unit": "celsius"
   },
   "notification_channels": ["email", "sms", "slack"],
   "severity": "high"
-}`}
-</CodeBlock>
+}
+```
 
 ---
 
 ## Webhooks v2 (Amélioré) {#webhooks}
 
-### Événements disponibles
-
-<Accordion title="Liste des événements">
-- forecast.updated  
-- sensor.reading  
-- sensor.alert  
-- production.batch_completed  
-- inventory.low_stock  
-- quality.alert  
+<Accordion title="Événements disponibles">
+- `forecast.updated`  
+- `sensor.reading`  
+- `sensor.alert`  
+- `production.batch_completed`  
+- `inventory.low_stock`  
+- `quality.alert`  
 </Accordion>
 
-### Configurer un webhook
+**Créer un webhook**
+```http
+POST /webhooks
+```
 
-<CodeBlock language="http">
-{`POST /v2/webhooks`}
-</CodeBlock>
-
-<CodeBlock language="json" title="Payload de configuration">
-{`{
+```json
+{
   "url": "https://votre-app.com/webhooks/salsa",
-  "events": [
-    "forecast.updated",
-    "sensor.alert"
-  ],
+  "events": ["forecast.updated", "sensor.alert"],
   "secret": "votre_secret_webhook",
   "active": true
-}`}
-</CodeBlock>
+}
+```
 
 ---
 
 ## SDKs et bibliothèques
 
-<CardGroup>
-  <Card title="JavaScript SDK v2" href="https://github.com/salsaasaservice/salsa-js-v2">
-    Support GraphQL et abonnements.
-  </Card>
-
-  <Card title="Python SDK v2" href="https://github.com/salsaasaservice/salsa-python-v2">
-    Support IA et IoT.
-  </Card>
-
-  <Card title="PHP SDK v2" href="https://github.com/salsaasaservice/salsa-php-v2">
-    Intégration web.
-  </Card>
-</CardGroup>
+- [JavaScript SDK v2](https://github.com/salsaasaservice/salsa-js-v2)  
+- [Python SDK v2](https://github.com/salsaasaservice/salsa-python-v2)  
+- [PHP SDK v2](https://github.com/salsaasaservice/salsa-php-v2)  
 
 ---
 
 ## Environnement Sandbox
 
-<CodeBlock language="text">
-{`https://api-sandbox.salsaasaservice.com/v2`}
-</CodeBlock>
+```text
+https://api-sandbox.salsaasaservice.com/v2
+```
 
 <Callout type="warning">
 L’environnement sandbox utilise des données de test et n’affecte pas votre production.
