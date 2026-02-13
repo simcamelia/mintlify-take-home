@@ -8,7 +8,6 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
-
   "navigation": {
     "groups": [
       {
@@ -73,21 +72,19 @@
           "fr/v1/changelog"
         ]
       },
-    {
-  "group": "Project Notes",
-  "pages": [
-    "navigation-decision",
-    "task2-decision"
-  ]
-}
+      {
+        "group": "Project Notes",
+        "pages": [
+          "navigation-decision",
+          "task2-decision"
+        ]
+      }
     ]
   },
-
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-
   "navbar": {
     "links": [
       {
@@ -101,7 +98,6 @@
       "href": "https://dashboard.salsaasaservice.com"
     }
   },
-
   "contextual": {
     "options": [
       "copy",
@@ -114,7 +110,6 @@
       "vscode"
     ]
   },
-
   "footer": {
     "socials": {
       "x": "https://x.com/salsaasaservice",
