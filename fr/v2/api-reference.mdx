@@ -1,106 +1,52 @@
 ---
-title: "Référence API - v2.0"
-description: "Documentation API complète pour v2.0 avec support REST et GraphQL"
+title: "R√©f√©rence API - v2.0"
+description: "Documentation API compl√®te pour v2.0 avec support GraphQL"
 ---
 
 # API Salsa as a Service v2.0
 
-L'API v2.0 ajoute le support GraphQL, un système de webhooks amélioré, des endpoints de prévision IA et une gestion avancée des capteurs IoT.
-
-<Callout type="info">
-**Nouveau dans v2.0 :** endpoint GraphQL disponible à `https://api.salsaasaservice.com/graphql`.
-</Callout>
-
----
+L'API v2.0 ajoute le support GraphQL, webhooks am√©lior√©s et nouveaux endpoints de pr√©vision IA.
 
 ## URL de base
 
-**REST (Production)**
-
-```text
+```
 https://api.salsaasaservice.com/v2
 ```
 
-**GraphQL**
+> **Note:**
+**Nouveau dans v2.0** : Endpoint GraphQL disponible sur `https://api.salsaasaservice.com/graphql`
 
-```text
-https://api.salsaasaservice.com/graphql
-```
 
-**Sandbox (REST)**
+## Authentification
 
-```text
-https://api-sandbox.salsaasaservice.com/v2
-```
+Toutes les requ√™tes API n√©cessitent une authentification avec votre cl√© API.
 
----
-
-## Navigation rapide
-
-<CardGroup>
-  <Card title="Authentification" href="#authentification">
-    Clés API, en-têtes et exemples.
-  </Card>
-  <Card title="Limites de taux" href="#limites-de-taux">
-    Quotas + en-têtes de réponse.
-  </Card>
-  <Card title="Prévisions IA" href="#previsions-ia">
-    Endpoint de prévision et entraînement.
-  </Card>
-  <Card title="Webhooks" href="#webhooks">
-    Événements et configuration.
-  </Card>
-</CardGroup>
-
----
-
-## Authentification {#authentification}
-
-Toutes les requêtes API nécessitent une authentification avec votre clé API.
-
-<Callout type="info">
-**Clé API :** récupérez votre clé via les <a href="https://app.salsaasaservice.com/settings/api">Developer Settings</a> dans le dashboard.
-</Callout>
-
-### En-tête d'authentification
+### En-t√™te d'authentification
 
 ```http
 Authorization: Bearer VOTRE_CLE_API
 ```
 
-**Exemple cURL**
+> **Warning:**
+**Changement v2.0** : Les cl√©s API v1.0 ne fonctionnent pas avec v2.0. G√©n√©rez une nouvelle cl√© depuis **Param√®tres > D√©veloppeur > API v2.0**.
 
-```bash
-curl -H "Authorization: Bearer VOTRE_CLE_API" \
-  https://api.salsaasaservice.com/v2/ai/forecast?location=loc_123&days=7
+
+## Limites de taux
+
+- **Plan Starter** : 10 000 requ√™tes par heure (augment√© depuis v1.0)
+- **Plan Professionnel** : 100 000 requ√™tes par heure
+- **Plan Entreprise** : Illimit√©
+
+## API GraphQL (Nouveau dans v2.0)
+
+### Endpoint GraphQL
+
 ```
-
-<Callout type="warning">
-Les clés API v1 ne sont pas compatibles avec v2. Générez une nouvelle clé v2 depuis votre dashboard.
-</Callout>
-
----
-
-## Limites de taux {#limites-de-taux}
-
-- **Plan Starter** : 10 000 requêtes / heure  
-- **Plan Professionnel** : 100 000 requêtes / heure  
-- **Plan Entreprise** : Illimité  
-
-<Callout type="info">
-Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
-</Callout>
-
----
-
-## API GraphQL (Nouveau)
-
-**Endpoint**
-```text
 https://api.salsaasaservice.com/graphql
 ```
 
-**Exemple de requête**
+### Exemple de requ√™te
+
 ```graphql
 query GetProductionForecast {
   forecast(location: "loc_123", days: 7) {
@@ -118,7 +64,10 @@ query GetProductionForecast {
 }
 ```
 
-**Abonnements (temps réel)**
+### Abonnements en temps r√©el
+
+**Nouveau dans v2.0** : Abonnements WebSocket pour mises √† jour en direct
+
 ```graphql
 subscription OnQualityAlert {
   qualityAlert(location: "loc_123") {
@@ -131,23 +80,47 @@ subscription OnQualityAlert {
 }
 ```
 
-**Explorer**
-```text
+### Explorer GraphQL interactif
+
+Explorez le sch√©ma GraphQL et testez les requ√™tes :
+
+```
 https://api.salsaasaservice.com/graphql/explorer
 ```
 
----
-
 ## API REST
 
-### Prévisions IA {#previsions-ia}
+L'API REST reste disponible pour compatibilit√©.
 
-**Obtenir les prévisions**
+### Endpoints principaux
+
+
+**[Gestion d'inventaire](#inventaire)**  
+G√©rez ingr√©dients, stock et fra√Æcheur.
+
+**[Pr√©visions IA](#previsions-ia)**  
+Nouveau dans v2.0 : Acc√©dez aux pr√©visions de demande aliment√©es par IA.
+
+**[Capteurs IoT](#capteurs-iot)**  
+Nouveau dans v2.0 : G√©rez capteurs et lectures.
+
+**[Production](#production)**  
+Suivez lots de production et qualit√©.
+
+
+
+## Pr√©visions IA (Nouveau dans v2.0)
+
+### Obtenir les pr√©visions de demande
+
+R√©cup√©rez les pr√©visions aliment√©es par IA pour vos recettes.
+
 ```http
-GET /ai/forecast?location=loc_123&days=7
+GET /v2/ai/forecast?location=loc_123&days=7
 ```
 
-**Exemple de réponse**
+**R√©ponse :**
+
 ```json
 {
   "forecast_period": {
@@ -165,48 +138,73 @@ GET /ai/forecast?location=loc_123&days=7
         "unit": "gallons",
         "confidence_interval": [11.2, 13.8],
         "confidence_level": 0.95
+      },
+      "factors": {
+        "day_of_week": "Vendredi (+20%)",
+        "weather": "Ensoleill√© (+5%)",
+        "events": ["Concert local (+10%)"]
       }
     }
-  ]
+  ],
+  "model_accuracy": {
+    "mape": 5.2,
+    "last_updated": "2024-01-19T08:00:00Z"
+  }
 }
 ```
 
-**Entraîner le modèle**
+### Entra√Æner le mod√®le IA
+
+R√©entra√Ænez le mod√®le avec de nouvelles donn√©es.
+
 ```http
-POST /ai/forecast/train
+POST /v2/ai/forecast/train
 ```
 
----
+## Capteurs IoT (Nouveau dans v2.0)
 
-### Capteurs IoT {#capteurs-iot}
+### Obtenir tous les capteurs
 
-**Lister les capteurs**
 ```http
-GET /iot/sensors?location=loc_123
+GET /v2/iot/sensors?location=loc_123
 ```
 
-**Exemple de réponse**
+**R√©ponse :**
+
 ```json
 {
   "sensors": [
     {
       "id": "sensor_001",
-      "name": "Capteur température - Réfrigérateur 1",
-      "status": "online"
+      "name": "Capteur de temp√©rature - R√©frig√©rateur 1",
+      "type": "temperature",
+      "location": "loc_123",
+      "status": "online",
+      "last_reading": {
+        "value": 3.5,
+        "unit": "celsius",
+        "timestamp": "2024-01-20T10:30:00Z",
+        "quality": "good"
+      },
+      "battery_level": 85
     }
   ]
 }
 ```
 
-**Lire les mesures**
+### Obtenir les lectures de capteur
+
 ```http
-GET /iot/sensors/{sensor_id}/readings?start_date=2024-01-01&end_date=2024-01-31
+GET /v2/iot/sensors/{sensor_id}/readings?start_date=2024-01-01&end_date=2024-01-31
 ```
 
-**Configurer une alerte**
+### Configurer les alertes de capteur
+
 ```http
-POST /iot/sensors/{sensor_id}/alerts
+POST /v2/iot/sensors/{sensor_id}/alerts
 ```
+
+**Corps de la requ√™te :**
 
 ```json
 {
@@ -221,61 +219,105 @@ POST /iot/sensors/{sensor_id}/alerts
 }
 ```
 
----
+## Webhooks v2 (Am√©lior√©)
 
-## Webhooks v2 (Amélioré) {#webhooks}
+**Nouveau dans v2.0** : Syst√®me de webhooks am√©lior√© avec :
 
-<Accordion title="Événements disponibles">
-- `forecast.updated`  
-- `sensor.reading`  
-- `sensor.alert`  
-- `production.batch_completed`  
-- `inventory.low_stock`  
-- `quality.alert`  
-</Accordion>
+- Livraison garantie avec logique de r√©essai
+- Filtrage et routage d'√©v√©nements
+- V√©rification de signature
+- Suivi de statut de livraison
 
-**Créer un webhook**
+### √âv√©nements disponibles
+
+- `forecast.updated` : Pr√©visions IA mises √† jour
+- `sensor.reading` : Nouvelle lecture de capteur
+- `sensor.alert` : Alerte de capteur d√©clench√©e
+- `production.batch_completed` : Lot de production termin√©
+- `inventory.low_stock` : Stock faible d√©tect√©
+- `quality.alert` : Probl√®me de qualit√© d√©tect√©
+
+### Configurer un webhook
+
 ```http
-POST /webhooks
+POST /v2/webhooks
 ```
+
+**Corps de la requ√™te :**
 
 ```json
 {
   "url": "https://votre-app.com/webhooks/salsa",
-  "events": ["forecast.updated", "sensor.alert"],
+  "events": [
+    "forecast.updated",
+    "sensor.alert",
+    "production.batch_completed"
+  ],
   "secret": "votre_secret_webhook",
   "active": true
 }
 ```
 
----
+### Exemple de payload webhook
 
-## SDKs et bibliothèques
+```json
+{
+  "event": "sensor.alert",
+  "timestamp": "2024-01-20T10:30:00Z",
+  "data": {
+    "alert_id": "alert_789",
+    "sensor_id": "sensor_001",
+    "severity": "high",
+    "message": "Temp√©rature hors limites",
+    "reading": {
+      "value": 8.5,
+      "threshold": 4.0,
+      "unit": "celsius"
+    }
+  },
+  "signature": "sha256=abc123..."
+}
+```
 
-- [JavaScript SDK v2](https://github.com/salsaasaservice/salsa-js-v2)  
-- [Python SDK v2](https://github.com/salsaasaservice/salsa-python-v2)  
-- [PHP SDK v2](https://github.com/salsaasaservice/salsa-php-v2)  
+## SDKs et biblioth√®ques
 
----
+SDKs officiels pour v2.0 :
+
+
+**[JavaScript/Node.js](https://github.com/salsaasaservice/salsa-js-v2)**  
+SDK v2.0 avec support GraphQL et abonnements.
+
+**[Python](https://github.com/salsaasaservice/salsa-python-v2)**  
+SDK Python v2.0 avec support IA et IoT.
+
+**[PHP](https://github.com/salsaasaservice/salsa-php-v2)**  
+SDK PHP v2.0 pour applications web.
+
+
 
 ## Environnement Sandbox
 
-```text
+Testez vos int√©grations dans un environnement s√ªr :
+
+**URL Sandbox :**
+```
 https://api-sandbox.salsaasaservice.com/v2
 ```
 
-<Callout type="warning">
-L’environnement sandbox utilise des données de test et n’affecte pas votre production.
-</Callout>
+> **Warning:**
+**Donn√©es Sandbox** : L'environnement sandbox utilise des donn√©es de test et n'affecte pas votre compte de production.
 
----
 
 ## Support
 
-- 📧 api-support@salsaasaservice.com  
-- 💬 Discord développeur  
-- 🎥 Tutoriels vidéo  
+Besoin d'aide avec l'API v2.0 ?
 
-<Callout type="info">
-Les clients v2 bénéficient d’un support API prioritaire.
-</Callout>
+- üìß **E-mail** : api-support@salsaasaservice.com
+- üìö **Documentation** : Documentation compl√®te GraphQL et REST
+- üí¨ **Discord d√©veloppeur** : Rejoignez notre communaut√©
+- üé• **Tutoriels** : Tutoriels d'int√©gration vid√©o
+
+> **Note:**
+**Support API am√©lior√©** : Les clients v2.0 re√ßoivent un support API prioritaire et acc√®s √† nos ing√©nieurs API.
+
+
