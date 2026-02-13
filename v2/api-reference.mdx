@@ -3,16 +3,6 @@ title: "API Reference - v2.0"
 description: "Complete API documentation for v2.0 with REST and GraphQL support"
 ---
 
-import {
-  Accordion,
-  Callout,
-  Card,
-  CardGroup,
-  CodeGroup,
-  Tabs,
-  Tab
-} from "mintlify/components";
-
 import VersionBanner from "../snippets/VersionBanner";
 
 # Salsa as a Service API v2.0
@@ -118,8 +108,6 @@ X-RateLimit-Reset: 1640995200
 
 ### GET /ingredients
 
-Retrieve all ingredients.
-
 <Tabs>
   <Tab title="Request">
 ```http
@@ -153,8 +141,6 @@ GET /ingredients
 ---
 
 ### PUT /ingredients/{ingredient_id}/stock
-
-Update ingredient stock.
 
 <Tabs>
   <Tab title="Request">
@@ -195,10 +181,6 @@ GET /recipes
 
 ### POST /recipes
 
-```http
-POST /recipes
-```
-
 ```json Request Body
 {
   "name": "Spicy Chipotle Salsa",
@@ -214,10 +196,6 @@ POST /recipes
 ## Production Tracking {#production}
 
 ### POST /production/batches
-
-```http
-POST /production/batches
-```
 
 ```json Request Body
 {
@@ -265,8 +243,6 @@ GET /analytics/production?period=30d
   }
 }
 ```
-
-### Common Error Codes
 
 <Accordion title="Client Errors">
 - `400` Bad Request  
