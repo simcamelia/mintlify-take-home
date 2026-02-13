@@ -16,17 +16,17 @@ The v2.0 API adds GraphQL support, enhanced webhooks, new AI forecasting endpoin
 ## Base URLs
 
 <CodeGroup>
-```text Production
-https://api.salsaasaservice.com/v2
-```
+  <CodeBlock language="text" title="Production">
+{`https://api.salsaasaservice.com/v2`}
+  </CodeBlock>
 
-```text GraphQL
-https://api.salsaaservice.com/graphql
-```
+  <CodeBlock language="text" title="GraphQL">
+{`https://api.salsaasaservice.com/graphql`}
+  </CodeBlock>
 
-```text Sandbox
-https://api-sandbox.salsaasaservice.com/v2
-```
+  <CodeBlock language="text" title="Sandbox">
+{`https://api-sandbox.salsaasaservice.com/v2`}
+  </CodeBlock>
 </CodeGroup>
 
 <Callout type="info">
@@ -43,42 +43,42 @@ All API requests require authentication using your API key.
 Get your API key from the <a href="https://app.salsaasaservice.com/settings/api">Developer Settings</a> in your dashboard.
 </Callout>
 
-### Authentication Header
-
-Include your API key in the Authorization header:
+### Authorization Header
 
 <CodeGroup>
-```http Header
-Authorization: Bearer YOUR_API_KEY
-```
+  <CodeBlock language="http" title="Header">
+{`Authorization: Bearer YOUR_API_KEY`}
+  </CodeBlock>
 
-```bash Curl
-curl -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.salsaasaservice.com/v2/ingredients
-```
+  <CodeBlock language="bash" title="cURL Example">
+{`curl -H "Authorization: Bearer YOUR_API_KEY" \\
+  https://api.salsaasaservice.com/v2/ingredients`}
+  </CodeBlock>
 
-```javascript Fetch
-fetch("https://api.salsaasaservice.com/v2/ingredients", {
+  <CodeBlock language="javascript" title="Fetch Example">
+{`fetch("https://api.salsaasaservice.com/v2/ingredients", {
   headers: { Authorization: "Bearer YOUR_API_KEY" }
-});
-```
+});`}
+  </CodeBlock>
 </CodeGroup>
 
 ---
 
 ## Rate Limits
 
-- **Free Plan**: 1,000 requests per hour
-- **Professional Plan**: 10,000 requests per hour
-- **Enterprise Plan**: 100,000 requests per hour
+- **Free Plan**: 1,000 requests per hour  
+- **Professional Plan**: 10,000 requests per hour  
+- **Enterprise Plan**: 100,000 requests per hour  
 
-Rate limit headers are included in all responses:
+<Callout type="warning">
+Monitor the rate limit headers in responses to avoid throttling.
+</Callout>
 
-```http
-X-RateLimit-Limit: 1000
+<CodeBlock language="http" title="Rate Limit Headers">
+{`X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999
-X-RateLimit-Reset: 1640995200
-```
+X-RateLimit-Reset: 1640995200`}
+</CodeBlock>
 
 ---
 
@@ -106,20 +106,20 @@ X-RateLimit-Reset: 1640995200
 
 ## Inventory Management {#inventory}
 
-### Get All Ingredients
+### GET /ingredients
 
-Retrieve a list of all ingredients in your inventory.
+Retrieve all ingredients.
 
 <Tabs>
   <Tab title="Request">
-```http
-GET /ingredients
-```
+    <CodeBlock language="http">
+{`GET /ingredients`}
+    </CodeBlock>
   </Tab>
 
   <Tab title="Response">
-```json
-{
+    <CodeBlock language="json">
+{`{
   "data": [
     {
       "id": "ing_123",
@@ -127,9 +127,6 @@ GET /ingredients
       "category": "vegetables",
       "current_stock": 25.5,
       "unit": "lbs",
-      "supplier": "Fresh Farms Co.",
-      "last_updated": "2024-01-15T10:30:00Z",
-      "expiry_date": "2024-01-20T00:00:00Z",
       "quality_score": 8.5
     }
   ],
@@ -138,351 +135,144 @@ GET /ingredients
     "per_page": 50,
     "total": 1
   }
-}
-```
+}`}
+    </CodeBlock>
   </Tab>
 </Tabs>
 
-### Update Ingredient Stock
+---
 
-Update the stock level for a specific ingredient.
+### PUT /ingredients/{ingredient_id}/stock
+
+Update ingredient stock.
 
 <Tabs>
   <Tab title="Request">
-```http
-PUT /ingredients/{ingredient_id}/stock
-```
-
-```json
-{
+    <CodeBlock language="json">
+{`{
   "quantity": 30.0,
   "unit": "lbs",
   "notes": "New shipment received"
-}
-```
+}`}
+    </CodeBlock>
   </Tab>
 
   <Tab title="Response">
-```json
-{
+    <CodeBlock language="json">
+{`{
   "id": "ing_123",
-  "name": "Roma Tomatoes",
   "current_stock": 30.0,
   "unit": "lbs",
   "updated_at": "2024-01-15T11:00:00Z"
-}
-```
+}`}
+    </CodeBlock>
   </Tab>
 </Tabs>
-
-### Add New Ingredient
-
-Add a new ingredient to your inventory.
-
-```http
-POST /ingredients
-```
-
-**Request Body:**
-
-```json
-{
-  "name": "Jalapeño Peppers",
-  "category": "vegetables",
-  "initial_stock": 5.0,
-  "unit": "lbs",
-  "supplier": "Spice Garden",
-  "expiry_date": "2024-01-25T00:00:00Z"
-}
-```
 
 ---
 
 ## Recipe Management {#recipes}
 
-### Get All Recipes
+### GET /recipes
 
-Retrieve all salsa recipes in your account.
+<CodeBlock language="http">
+{`GET /recipes`}
+</CodeBlock>
 
-```http
-GET /recipes
-```
+### POST /recipes
 
-**Response:**
-
-```json
-{
-  "data": [
-    {
-      "id": "rec_456",
-      "name": "House Salsa",
-      "description": "Our signature medium-spice salsa",
-      "spice_level": "medium",
-      "batch_size": 5.0,
-      "yield": "gallons",
-      "prep_time": 30,
-      "ingredients": [
-        {
-          "ingredient_id": "ing_123",
-          "name": "Roma Tomatoes",
-          "quantity": 2.0,
-          "unit": "lbs"
-        }
-      ],
-      "created_at": "2024-01-10T09:00:00Z",
-      "updated_at": "2024-01-15T14:30:00Z"
-    }
-  ]
-}
-```
-
-### Create New Recipe
-
-Create a new salsa recipe.
-
-```http
-POST /recipes
-```
-
-**Request Body:**
-
-```json
-{
+<CodeBlock language="json" title="Request Body">
+{`{
   "name": "Spicy Chipotle Salsa",
-  "description": "Smoky and spicy chipotle-based salsa",
   "spice_level": "hot",
   "batch_size": 3.0,
   "yield": "gallons",
-  "prep_time": 45,
-  "ingredients": [
-    {
-      "ingredient_id": "ing_789",
-      "quantity": 1.5,
-      "unit": "lbs"
-    }
-  ]
-}
-```
-
-### Update Recipe
-
-Update an existing recipe.
-
-```http
-PUT /recipes/{recipe_id}
-```
+  "prep_time": 45
+}`}
+</CodeBlock>
 
 ---
 
 ## Production Tracking {#production}
 
-### Start Production Batch
+### POST /production/batches
 
-Begin tracking a new salsa production batch.
-
-```http
-POST /production/batches
-```
-
-**Request Body:**
-
-```json
-{
+<CodeBlock language="json" title="Request Body">
+{`{
   "recipe_id": "rec_456",
   "batch_number": "BATCH-2024-001",
-  "planned_quantity": 5.0,
-  "production_date": "2024-01-15T08:00:00Z",
-  "assigned_chef": "chef_123"
-}
-```
-
-**Response:**
-
-```json
-{
-  "id": "batch_789",
-  "recipe_id": "rec_456",
-  "batch_number": "BATCH-2024-001",
-  "status": "in_progress",
-  "started_at": "2024-01-15T08:00:00Z",
-  "assigned_chef": "chef_123"
-}
-```
-
-### Complete Production Batch
-
-Mark a production batch as completed with quality metrics.
-
-```http
-PUT /production/batches/{batch_id}/complete
-```
-
-**Request Body:**
-
-```json
-{
-  "actual_quantity": 4.8,
-  "quality_score": 9.2,
-  "notes": "Excellent batch, perfect consistency",
-  "completed_at": "2024-01-15T09:30:00Z"
-}
-```
-
-### Get Production History
-
-Retrieve production history with filtering options.
-
-```http
-GET /production/batches?start_date=2024-01-01&end_date=2024-01-31&recipe_id=rec_456
-```
+  "planned_quantity": 5.0
+}`}
+</CodeBlock>
 
 ---
 
 ## Analytics & Reporting {#analytics}
 
-### Get Production Analytics
-
-Retrieve analytics data for salsa production.
+### GET /analytics/production
 
 <Tabs>
   <Tab title="Request">
-```http
-GET /analytics/production?period=30d&recipe_id=rec_456
-```
+    <CodeBlock language="http">
+{`GET /analytics/production?period=30d`}
+    </CodeBlock>
   </Tab>
 
   <Tab title="Response">
-```json
-{
+    <CodeBlock language="json">
+{`{
   "period": "30d",
   "total_batches": 45,
-  "total_quantity": 225.0,
-  "average_quality_score": 8.7,
-  "waste_percentage": 2.3,
-  "top_performing_recipes": [
-    {
-      "recipe_id": "rec_456",
-      "name": "House Salsa",
-      "batches": 30,
-      "avg_quality": 9.1
-    }
-  ]
-}
-```
+  "average_quality_score": 8.7
+}`}
+    </CodeBlock>
   </Tab>
 </Tabs>
-
-### Get Inventory Analytics
-
-Get insights into inventory usage and optimization opportunities.
-
-```http
-GET /analytics/inventory?period=7d
-```
 
 ---
 
 ## Error Handling
 
-The API uses standard HTTP status codes and returns detailed error information.
-
 ### Error Response Format
 
-```json
-{
+<CodeBlock language="json">
+{`{
   "error": {
     "code": "INVALID_REQUEST",
-    "message": "The request body is missing required fields",
-    "details": {
-      "missing_fields": ["name", "category"]
-    }
+    "message": "The request body is missing required fields"
   }
-}
-```
+}`}
+</CodeBlock>
 
 ### Common Error Codes
 
 <Accordion title="Client Errors">
-- `400 Bad Request` - Invalid request data  
-- `401 Unauthorized` - Missing or invalid API key  
-- `403 Forbidden` - Insufficient permissions  
-- `404 Not Found` - Resource not found  
-- `422 Unprocessable Entity` - Validation errors  
-- `429 Too Many Requests` - Rate limit exceeded  
+- `400` Bad Request  
+- `401` Unauthorized  
+- `403` Forbidden  
+- `404` Not Found  
+- `422` Validation error  
+- `429` Rate limit exceeded  
 </Accordion>
 
 <Accordion title="Server Errors">
-- `500 Internal Server Error` - Server error  
-- `502 Bad Gateway` - Upstream service error  
-- `503 Service Unavailable` - Service temporarily unavailable  
+- `500` Internal Server Error  
+- `502` Bad Gateway  
+- `503` Service Unavailable  
 </Accordion>
-
----
-
-## SDKs and Libraries
-
-We provide official SDKs for popular programming languages:
-
-- [JavaScript/Node.js](https://github.com/salsaasaservice/salsa-js)  
-- [Python](https://github.com/salsaasaservice/salsa-python)  
-- [PHP](https://github.com/salsaasaservice/salsa-php)  
 
 ---
 
 ## Webhooks
 
-Configure webhooks to receive real-time notifications about important events.
-
-### Supported Events
-
-- `ingredient.low_stock` - When ingredient stock falls below threshold  
-- `production.batch_completed` - When a production batch is completed  
-- `quality.alert` - When quality scores fall below acceptable levels  
-- `inventory.expiry_warning` - When ingredients are approaching expiry  
-
-### Webhook Configuration
-
-```http
-POST /webhooks
-```
-
-**Request Body:**
-
-```json
-{
+<CodeBlock language="json" title="Create Webhook Request">
+{`{
   "url": "https://your-app.com/webhooks/salsa",
   "events": ["ingredient.low_stock", "production.batch_completed"],
   "secret": "your_webhook_secret"
-}
-```
-
----
-
-## Testing
-
-Use our sandbox environment for testing your integrations:
-
-**Sandbox Base URL:**
-
-```
-https://api-sandbox.salsaasaservice.com/v2
-```
-
-<Callout type="warning">
-Sandbox data uses test records and does not affect your production account.
-</Callout>
-
----
-
-## Support
-
-Need help with the API?
-
-- 📧 **Email**: api-support@salsaasaservice.com  
-- 📚 **Documentation**: Browse our guides  
-- 💬 **Developer Community**: Join our Discord server  
-- 🎥 **Video Tutorials**: Watch integration tutorials  
+}`}
+</CodeBlock>
 
 <Callout type="tip">
-Use the contextual AI tools to generate examples in your preferred language (curl → Python/Node) or to draft a support ticket with context.
+Use the contextual AI tools to convert examples between curl, Python, and Node.js or to draft support tickets with request context.
 </Callout>
