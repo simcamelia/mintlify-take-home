@@ -7,7 +7,11 @@ import VersionBanner from "/snippets/VersionBanner";
 
 # API Salsa as a Service v2.0
 
-<VersionBanner version="v2" status="current" />
+<VersionBanner
+  version="v2"
+  status="current"
+  note="Vous consultez la version la plus récente de l’API v2."
+/>
 
 L'API v2.0 ajoute le support GraphQL, un système de webhooks amélioré, des endpoints de prévision IA et une gestion avancée des capteurs IoT.
 
@@ -16,21 +20,21 @@ L'API v2.0 ajoute le support GraphQL, un système de webhooks amélioré, des en
 ## URL de base
 
 <CodeGroup>
-```text Production
-https://api.salsaasaservice.com/v2
-```
+  <CodeBlock language="text" title="Production">
+{`https://api.salsaasaservice.com/v2`}
+  </CodeBlock>
 
-```text GraphQL
-https://api.salsaasaservice.com/graphql
-```
+  <CodeBlock language="text" title="GraphQL">
+{`https://api.salsaasaservice.com/graphql`}
+  </CodeBlock>
 
-```text Sandbox
-https://api-sandbox.salsaasaservice.com/v2
-```
+  <CodeBlock language="text" title="Sandbox">
+{`https://api-sandbox.salsaasaservice.com/v2`}
+  </CodeBlock>
 </CodeGroup>
 
 <Callout type="info">
-Nouveau dans v2.0 : Endpoint GraphQL disponible avec support des abonnements en temps réel.
+Nouveau dans v2.0 : endpoint GraphQL disponible avec support des abonnements en temps réel.
 </Callout>
 
 ---
@@ -42,14 +46,14 @@ Toutes les requêtes API nécessitent une authentification avec votre clé API.
 ### En-tête d'authentification
 
 <CodeGroup>
-```http
-Authorization: Bearer VOTRE_CLE_API
-```
+  <CodeBlock language="http" title="Header">
+{`Authorization: Bearer VOTRE_CLE_API`}
+  </CodeBlock>
 
-```bash
-curl -H "Authorization: Bearer VOTRE_CLE_API" \
-https://api.salsaasaservice.com/v2/ai/forecast
-```
+  <CodeBlock language="bash" title="Exemple cURL">
+{`curl -H "Authorization: Bearer VOTRE_CLE_API" \\
+https://api.salsaasaservice.com/v2/ai/forecast`}
+  </CodeBlock>
 </CodeGroup>
 
 <Callout type="warning">
@@ -64,20 +68,24 @@ Les clés API v1.0 ne fonctionnent pas avec v2.0. Générez une nouvelle clé de
 - **Plan Professionnel** : 100 000 requêtes / heure  
 - **Plan Entreprise** : Illimité  
 
+<Callout type="info">
+Surveillez les en-têtes de réponse pour éviter le dépassement de limite.
+</Callout>
+
 ---
 
 # API GraphQL (Nouveau)
 
 ## Endpoint GraphQL
 
-```
-https://api.salsaasaservice.com/graphql
-```
+<CodeBlock language="text">
+{`https://api.salsaasaservice.com/graphql`}
+</CodeBlock>
 
 ## Exemple de requête
 
-```graphql
-query GetProductionForecast {
+<CodeBlock language="graphql">
+{`query GetProductionForecast {
   forecast(location: "loc_123", days: 7) {
     date
     recipes {
@@ -90,13 +98,13 @@ query GetProductionForecast {
       }
     }
   }
-}
-```
+}`}
+</CodeBlock>
 
 ## Abonnements en temps réel
 
-```graphql
-subscription OnQualityAlert {
+<CodeBlock language="graphql">
+{`subscription OnQualityAlert {
   qualityAlert(location: "loc_123") {
     id
     severity
@@ -104,14 +112,14 @@ subscription OnQualityAlert {
     message
     timestamp
   }
-}
-```
+}`}
+</CodeBlock>
 
 ## Explorer GraphQL
 
-```
-https://api.salsaasaservice.com/graphql/explorer
-```
+<CodeBlock language="text">
+{`https://api.salsaasaservice.com/graphql/explorer`}
+</CodeBlock>
 
 ---
 
@@ -143,14 +151,14 @@ https://api.salsaasaservice.com/graphql/explorer
 
 <Tabs>
   <Tab title="Requête">
-```http
-GET /v2/ai/forecast?location=loc_123&days=7
-```
+    <CodeBlock language="http">
+{`GET /v2/ai/forecast?location=loc_123&days=7`}
+    </CodeBlock>
   </Tab>
 
   <Tab title="Réponse">
-```json
-{
+    <CodeBlock language="json">
+{`{
   "forecast_period": {
     "start_date": "2024-01-20",
     "end_date": "2024-01-27",
@@ -168,21 +176,17 @@ GET /v2/ai/forecast?location=loc_123&days=7
         "confidence_level": 0.95
       }
     }
-  ],
-  "model_accuracy": {
-    "mape": 5.2,
-    "last_updated": "2024-01-19T08:00:00Z"
-  }
-}
-```
+  ]
+}`}
+    </CodeBlock>
   </Tab>
 </Tabs>
 
 ### Entraîner le modèle IA
 
-```http
-POST /v2/ai/forecast/train
-```
+<CodeBlock language="http">
+{`POST /v2/ai/forecast/train`}
+</CodeBlock>
 
 ---
 
@@ -192,57 +196,45 @@ POST /v2/ai/forecast/train
 
 <Tabs>
   <Tab title="Requête">
-```http
-GET /v2/iot/sensors?location=loc_123
-```
+    <CodeBlock language="http">
+{`GET /v2/iot/sensors?location=loc_123`}
+    </CodeBlock>
   </Tab>
 
   <Tab title="Réponse">
-```json
-{
+    <CodeBlock language="json">
+{`{
   "sensors": [
     {
       "id": "sensor_001",
-      "name": "Capteur de température - Réfrigérateur 1",
-      "type": "temperature",
-      "status": "online",
-      "last_reading": {
-        "value": 3.5,
-        "unit": "celsius",
-        "timestamp": "2024-01-20T10:30:00Z"
-      },
-      "battery_level": 85
+      "name": "Capteur température - Réfrigérateur 1",
+      "status": "online"
     }
   ]
-}
-```
+}`}
+    </CodeBlock>
   </Tab>
 </Tabs>
 
 ### Obtenir les lectures
 
-```http
-GET /v2/iot/sensors/{sensor_id}/readings?start_date=2024-01-01&end_date=2024-01-31
-```
+<CodeBlock language="http">
+{`GET /v2/iot/sensors/{sensor_id}/readings?start_date=2024-01-01&end_date=2024-01-31`}
+</CodeBlock>
 
 ### Configurer les alertes
 
-```http
-POST /v2/iot/sensors/{sensor_id}/alerts
-```
-
-```json
-{
+<CodeBlock language="json">
+{`{
   "alert_type": "threshold",
   "conditions": {
     "min_value": 2.0,
-    "max_value": 4.0,
-    "unit": "celsius"
+    "max_value": 4.0
   },
   "notification_channels": ["email", "sms", "slack"],
   "severity": "high"
-}
-```
+}`}
+</CodeBlock>
 
 ---
 
@@ -261,38 +253,21 @@ POST /v2/iot/sensors/{sensor_id}/alerts
 
 ### Configurer un webhook
 
-```http
-POST /v2/webhooks
-```
+<CodeBlock language="http">
+{`POST /v2/webhooks`}
+</CodeBlock>
 
-```json
-{
+<CodeBlock language="json" title="Payload de configuration">
+{`{
   "url": "https://votre-app.com/webhooks/salsa",
   "events": [
     "forecast.updated",
-    "sensor.alert",
-    "production.batch_completed"
+    "sensor.alert"
   ],
   "secret": "votre_secret_webhook",
   "active": true
-}
-```
-
-### Exemple de payload
-
-```json
-{
-  "event": "sensor.alert",
-  "timestamp": "2024-01-20T10:30:00Z",
-  "data": {
-    "alert_id": "alert_789",
-    "sensor_id": "sensor_001",
-    "severity": "high",
-    "message": "Température hors limites"
-  },
-  "signature": "sha256=abc123..."
-}
-```
+}`}
+</CodeBlock>
 
 ---
 
@@ -316,9 +291,9 @@ POST /v2/webhooks
 
 ## Environnement Sandbox
 
-```
-https://api-sandbox.salsaasaservice.com/v2
-```
+<CodeBlock language="text">
+{`https://api-sandbox.salsaasaservice.com/v2`}
+</CodeBlock>
 
 <Callout type="warning">
 L’environnement sandbox utilise des données de test et n’affecte pas votre production.
@@ -333,5 +308,5 @@ L’environnement sandbox utilise des données de test et n’affecte pas votre 
 - 🎥 Tutoriels vidéo  
 
 <Callout type="info">
-Les clients v2.0 bénéficient d’un support API prioritaire.
+Les clients v2 bénéficient d’un support API prioritaire.
 </Callout>
