@@ -1,107 +1,128 @@
 ---
-title: "Bienvenue sur Salsa as a Service v2.0"
-description: "Gestion de salsa nouvelle génération avec insights IA et fonctionnalités d'entreprise"
+title: "Bienvenue sur Salsa as a Service — v2"
+description: "Gestion de salsa nouvelle génération avec fonctionnalités IA, IoT en temps réel et capacités d’entreprise."
 ---
 
-# Salsa as a Service v2.0
+import VersionBanner from "/snippets/VersionBanner";
 
-Bienvenue à la prochaine évolution de la gestion de salsa. La version 2.0 apporte des prévisions alimentées par IA, surveillance IoT en temps réel et des fonctionnalités à échelle d'entreprise pour transformer vos opérations de restaurant.
+# Salsa as a Service — v2
 
-## Nouveautés dans v2.0
+<VersionBanner version="v2" status="current" />
 
+Bienvenue à la prochaine évolution de la gestion de salsa. La version **v2** apporte des fonctionnalités avancées (IA, intégrations, observabilité) pour améliorer la qualité, réduire le gaspillage et accélérer l’exécution en production.
 
-**[Prévisions IA](/fr/v2/utilisation-avancee#previsions-ia)**  
-L'apprentissage automatique prédit la demande avec une précision de 95%, réduisant le gaspillage.
+<CardGroup>
+  <Card title="Bien démarrer" href="/fr/v2/getting-started">
+    Authentification, première requête et validation rapide de votre intégration.
+  </Card>
 
-**[Surveillance IoT](/fr/v2/utilisation-avancee#capteurs-iot)**  
-Intégration de capteurs en temps réel surveille la fraîcheur, température et qualité automatiquement.
+  <Card title="Référence API" href="/fr/v2/api-reference">
+    Endpoints, paramètres, exemples et formats de réponse.
+  </Card>
 
-**[Intégrations avancées](/fr/v2/integrations)**  
-Connectez avec 50+ systèmes de restaurant, ERP et plateformes de chaîne d'approvisionnement.
+  <Card title="Usage avancé" href="/fr/v2/advanced-usage">
+    Bonnes pratiques, patterns de production et fonctionnalités avancées.
+  </Card>
 
+  <Card title="Dépannage" href="/fr/v2/troubleshooting">
+    Erreurs fréquentes, diagnostic et solutions étape par étape.
+  </Card>
+</CardGroup>
 
+<Callout type="info">
+Pour commencer rapidement, suivez <a href="/fr/v2/getting-started">Bien démarrer</a>.  
+Si vous migrez depuis v1, consultez les différences d’endpoints et de schémas de réponse dans la <a href="/fr/v2/api-reference">Référence API</a>.
+</Callout>
 
-## Pourquoi passer à v2.0 ?
+---
 
-Salsa as a Service v2.0 représente une réinvention complète de la gestion de salsa pour les opérations de restaurant modernes. Construit sur une infrastructure d'entreprise avec des capacités IA de pointe, v2.0 vous aide à réduire le gaspillage jusqu'à 60%, améliorer la cohérence qualité de 40% et augmenter l'efficacité opérationnelle.
+## Nouveautés dans v2
 
-### Améliorations clés par rapport à v1.0
+Voici les principales évolutions introduites dans v2 :
 
+<CardGroup>
+  <Card title="Prévisions IA" href="/fr/v2/advanced-usage">
+    Utilisez l’IA pour anticiper la demande et optimiser la production.
+  </Card>
 
-#### Performance
+  <Card title="Surveillance IoT" href="/fr/v2/advanced-usage">
+    Observabilité en temps réel : fraîcheur, température et qualité.
+  </Card>
 
-- **50% plus rapide** : Architecture entièrement reconstruite avec requêtes optimisées
-    - **Synchronisation en temps réel** : Synchronisation des données en moins d'une seconde
-    - **Disponibilité 99,99%** : SLA d'entreprise avec redondance multi-région
-    - **Hors ligne d'abord** : Fonctionnalité complète sans connexion Internet
+  <Card title="Intégrations avancées" href="/fr/v2/integrations">
+    Connectez votre stack (POS, ERP, supply chain) via des intégrations prêtes à l’emploi.
+  </Card>
+</CardGroup>
 
-#### IA et automatisation
+---
 
-- **Prévision de demande** : Prédisez la demande de salsa 7-30 jours à l'avance
-    - **Prédiction de qualité** : L'IA identifie les problèmes potentiels avant qu'ils ne se produisent
-    - **Réapprovisionnement automatique** : Gestion intelligente avec intégration fournisseur
-    - **Planification intelligente** : Optimisez les horaires basés sur la demande prédite
+## Pourquoi passer à v2 ?
 
-#### Fonctionnalités entreprise
+Salsa as a Service v2 représente une mise à niveau significative pour les opérations de restaurant modernes. L’objectif est de rendre les workflows plus fiables, plus rapides et plus simples à industrialiser.
 
-- **Emplacements illimités** : Gérez les chaînes de toute taille
-    - **RBAC avancé** : Contrôle d'accès granulaire avec politiques personnalisées
-    - **Suite de conformité** : Automatisation de conformité SOC 2, HACCP et FDA
-    - **Marque blanche** : Branding entièrement personnalisable
+<Tabs>
+  <Tab title="Performance">
+    - **Plus rapide** : architecture optimisée et requêtes améliorées  
+    - **Synchronisation en temps réel** : mises à jour rapides et cohérentes  
+    - **Disponibilité élevée** : approche orientée production avec résilience  
+  </Tab>
 
+  <Tab title="IA & Automatisation">
+    - **Prévision de demande** : anticipation 7–30 jours (selon configuration)  
+    - **Détection d’anomalies** : identification proactive des écarts de qualité  
+    - **Optimisation** : recommandations pour réduire le gaspillage et améliorer la cohérence  
+  </Tab>
 
+  <Tab title="Entreprise">
+    - **Gestion multi-sites** : adaptée aux chaînes et franchisés  
+    - **Contrôles d’accès** : rôles et permissions plus granulaires  
+    - **Conformité & audit** : journalisation et bonnes pratiques de sécurité  
+  </Tab>
+</Tabs>
+
+---
 
 ## Fonctionnalités principales
 
-### 🤖 **Intelligence alimentée par IA**
-- Prévision de demande avec précision de 95%+
-- Prédiction de qualité et détection d'anomalies
-- Recommandations d'optimisation des coûts
-- Optimisation automatique de recettes
+### 🤖 Intelligence alimentée par IA
+- Prévision de demande et aide à la planification
+- Détection d’anomalies qualité et alertes
+- Recommandations d’optimisation des coûts
+- Assistance à l’ajustement des recettes
 
-### 📡 **IoT et surveillance en temps réel**
-- Capteurs de température et humidité
-- Suivi de fraîcheur avec intégration RFID
-- Intégration d'équipement de test automatisé
-- Surveillance en temps réel de l'atelier de production
+### 📡 IoT et surveillance en temps réel
+- Capteurs température / humidité
+- Suivi de fraîcheur (selon intégrations)
+- Surveillance d’atelier et alertes en temps réel
+- Données opérationnelles pour analyse
 
-### 🌐 **Échelle et sécurité d'entreprise**
-- Déploiement multi-région avec basculement
-- Sécurité avancée avec SSO, MFA et authentification biométrique
-- Journalisation d'audit complète et rapports de conformité
-- Accords SLA personnalisés
+### 🌐 Échelle et sécurité d’entreprise
+- Approche orientée disponibilité et résilience
+- Sécurité renforcée (ex. SSO/MFA selon offre)
+- Journalisation et audit
+- Support des environnements multi-sites
 
-### 🔗 **Intégrations universelles**
-- 50+ intégrations POS pré-construites
-- Connectivité systèmes ERP (SAP, Oracle, Microsoft Dynamics)
-- Plateformes de gestion de chaîne d'approvisionnement
-- Outils d'intelligence d'affaires
+### 🔗 Intégrations universelles
+- Intégrations POS et outils opérationnels
+- Connectivité ERP (selon intégrations disponibles)
+- Supply chain et BI
+- Automatisation via API
 
-## Migration facilitée
+---
 
-> **Note:**
-**Migration transparente** : Les clients v1.0 peuvent migrer vers v2.0 sans temps d'arrêt. Notre équipe gère l'ensemble du processus.
+## Migration (v1 → v2)
 
+<Callout type="tip">
+Les clients v1 peuvent migrer vers v2 sans interruption majeure si la migration est planifiée (clés, endpoints, schémas, tests).  
+Consultez la documentation v1 (Legacy) dans la barre latérale si vous devez comparer.
+</Callout>
 
-## Prêt à commencer ?
+---
 
+## URL de base de l’API
 
-**[Commencer avec v2.0](/fr/v2/demarrage)**  
-Nouveau sur Salsa as a Service ? Commencez avec v2.0 aujourd'hui.
+Toutes les requêtes API v2 utilisent l’URL de base :
 
-**[Passer de v1.0 à v2.0](https://app.salsaasaservice.com/upgrade)**  
-Client existant ? Passez à v2.0 en quelques minutes.
-
-
-
-## URL de base API
-
-Toutes les requêtes API v2.0 utilisent la nouvelle URL de base :
-
-```
+<CodeGroup>
+```text URL de base
 https://api.salsaasaservice.com/v2
-```
-
-> **Warning:**
-**Dépréciation v1.0** : L'API v1.0 sera supportée jusqu'au 31 décembre 2025. Nous recommandons fortement de migrer vers v2.0.
-
