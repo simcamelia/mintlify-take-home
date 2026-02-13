@@ -7,64 +7,81 @@ import VersionBanner from "../snippets/VersionBanner";
 
 # Salsa as a Service API v2.0
 
+<VersionBanner version="v2" status="current" />
+
 The v2.0 API adds GraphQL support, enhanced webhooks, new AI forecasting endpoints, and improved analytics capabilities.
+
+<Callout type="info">
+This page is intentionally structured with Mintlify components (Callouts, Cards, Accordions) to make scanning faster and reduce cognitive load in long API docs.
+</Callout>
 
 ---
 
 ## Base URLs
 
-**REST (Production)**
-
-```text
+~~~text
+Production (REST)
 https://api.salsaasaservice.com/v2
-```
 
-**GraphQL**
-
-```text
+GraphQL
 https://api.salsaasaservice.com/graphql
-```
 
-**REST (Sandbox)**
-
-```text
+Sandbox (REST)
 https://api-sandbox.salsaasaservice.com/v2
-```
+~~~
 
 ---
 
-## Authentication
+## Quick navigation
+
+<CardGroup>
+  <Card title="Authentication" href="#authentication">
+    API keys, headers, and examples.
+  </Card>
+  <Card title="Rate Limits" href="#rate-limits">
+    Limits + headers to monitor usage.
+  </Card>
+  <Card title="Inventory" href="#inventory">
+    Ingredients and stock updates.
+  </Card>
+  <Card title="Error Handling" href="#error-handling">
+    Standard error format + codes.
+  </Card>
+</CardGroup>
+
+---
+
+## Authentication {#authentication}
 
 All API requests require authentication using your API key.
 
+<Callout type="info">
 Get your API key from the Developer Settings in your dashboard:
-
-https://app.salsaasaservice.com/settings/api
+<a href="https://app.salsaasaservice.com/settings/api">Developer Settings</a>
+</Callout>
 
 ### Authorization Header
 
-```http
+~~~http
 Authorization: Bearer YOUR_API_KEY
-```
+~~~
 
 **cURL**
-
-```bash
+~~~bash
 curl -H "Authorization: Bearer YOUR_API_KEY" \
   https://api.salsaasaservice.com/v2/ingredients
-```
+~~~
 
 **Fetch**
-
-```javascript
+~~~javascript
 fetch("https://api.salsaasaservice.com/v2/ingredients", {
   headers: { Authorization: "Bearer YOUR_API_KEY" }
 });
-```
+~~~
 
 ---
 
-## Rate Limits
+## Rate Limits {#rate-limits}
 
 - **Free Plan**: 1,000 requests per hour  
 - **Professional Plan**: 10,000 requests per hour  
@@ -72,11 +89,15 @@ fetch("https://api.salsaasaservice.com/v2/ingredients", {
 
 Rate limit headers are included in all responses:
 
-```http
+~~~http
 X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999
 X-RateLimit-Reset: 1640995200
-```
+~~~
+
+<Callout type="warning">
+If you’re close to the limit, back off and retry after <code>X-RateLimit-Reset</code>.
+</Callout>
 
 ---
 
@@ -84,13 +105,12 @@ X-RateLimit-Reset: 1640995200
 
 ### Get All Ingredients
 
-```http
+~~~http
 GET /ingredients
-```
+~~~
 
 **Response**
-
-```json
+~~~json
 {
   "data": [
     {
@@ -108,21 +128,22 @@ GET /ingredients
     "total": 1
   }
 }
-```
+~~~
 
 ### Update Ingredient Stock
 
-```http
+~~~http
 PUT /ingredients/{ingredient_id}/stock
-```
+~~~
 
-```json
+**Request**
+~~~json
 {
   "quantity": 30.0,
   "unit": "lbs",
   "notes": "New shipment received"
 }
-```
+~~~
 
 ---
 
@@ -130,55 +151,64 @@ PUT /ingredients/{ingredient_id}/stock
 
 ### Get Production Analytics
 
-```http
+~~~http
 GET /analytics/production?period=30d
-```
+~~~
 
-```json
+**Response**
+~~~json
 {
   "period": "30d",
   "total_batches": 45,
   "average_quality_score": 8.7
 }
-```
+~~~
 
 ---
 
-## Error Handling
+## Error Handling {#error-handling}
 
-```json
+**Error format**
+~~~json
 {
   "error": {
     "code": "INVALID_REQUEST",
     "message": "The request body is missing required fields"
   }
 }
-```
+~~~
 
-Common error codes:
+<Accordion title="Client Errors (4xx)">
+- `400` Bad Request  
+- `401` Unauthorized  
+- `403` Forbidden  
+- `404` Not Found  
+- `422` Validation error  
+- `429` Too Many Requests  
+</Accordion>
 
-- 400 Bad Request  
-- 401 Unauthorized  
-- 403 Forbidden  
-- 404 Not Found  
-- 422 Validation error  
-- 429 Too Many Requests  
-- 500 Internal Server Error  
-- 502 Bad Gateway  
-- 503 Service Unavailable  
+<Accordion title="Server Errors (5xx)">
+- `500` Internal Server Error  
+- `502` Bad Gateway  
+- `503` Service Unavailable  
+</Accordion>
 
 ---
 
-## Webhooks
+## Webhooks {#webhooks}
 
-```http
+~~~http
 POST /webhooks
-```
+~~~
 
-```json
+~~~json
 {
   "url": "https://your-app.com/webhooks/salsa",
   "events": ["ingredient.low_stock", "production.batch_completed"],
   "secret": "your_webhook_secret"
 }
-```
+~~~
+
+<Callout type="tip">
+Use the contextual AI tools to convert examples between curl, Python, and Node.js or to draft support tickets with request context.
+</Callout>
