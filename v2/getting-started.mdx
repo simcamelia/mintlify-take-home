@@ -11,8 +11,6 @@ import VersionBanner from "/snippets/VersionBanner";
 
 Welcome to **v2.0**. This guide walks you through account setup, AI feature configuration, IoT integration, and advanced system connections.
 
----
-
 ## Prerequisites
 
 Before you begin, ensure you have:
@@ -28,7 +26,7 @@ v2.0 includes an AI-powered setup wizard that recommends configuration based on 
 
 ---
 
-# Quick Setup Wizard
+## Quick Setup Wizard
 
 <Steps>
   <Step title="Create your account">
@@ -54,17 +52,17 @@ v2.0 includes an AI-powered setup wizard that recommends configuration based on 
 
 ---
 
-# Account Setup
+## Account Setup
 
-## Step 1: Create Your Account
+### Step 1: Create Your Account
 
 1. Visit the [Signup Page](https://app.salsaasaservice.com/signup)
 2. Choose authentication method:
-   - Email + 2FA
-   - SSO (Google, Microsoft, Okta)
-   - Enterprise SAML
-3. Verify identity
-4. Complete business verification
+   - Email + 2FA  
+   - SSO (Google, Microsoft, Okta)  
+   - Enterprise SAML  
+3. Verify identity  
+4. Complete business verification  
 
 <Callout type="tip">
 Enterprise customers can enable Single Sign-On during signup for seamless team access.
@@ -72,33 +70,33 @@ Enterprise customers can enable Single Sign-On during signup for seamless team a
 
 ---
 
-## Step 2: AI-Assisted Profile Configuration
+### Step 2: AI-Assisted Profile Configuration
 
 Navigate to **Settings → Restaurant Profile**
 
-### Kitchen & Infrastructure
-- Production capacity
-- Equipment inventory
-- IoT sensor placement
-- Refrigeration specs
+#### Kitchen & Infrastructure
+- Production capacity  
+- Equipment inventory  
+- IoT sensor placement  
+- Refrigeration specs  
 
-### Operations
-- Historical production volume
-- Salsa varieties
-- Peak times
-- Waste tracking goals
+#### Operations
+- Historical production volume  
+- Salsa varieties  
+- Peak times  
+- Waste tracking goals  
 
-### Team & Permissions
-- Role-based access control (RBAC)
-- Custom permission policies
-- Biometric access (enterprise)
-- Activity-based authentication rules
+#### Team & Permissions
+- Role-based access control (RBAC)  
+- Custom permission policies  
+- Biometric access (enterprise)  
+- Activity-based authentication rules  
 
 ---
 
-# AI Feature Configuration
+## AI Feature Configuration
 
-## Demand Forecasting
+### Demand Forecasting
 
 <Steps>
   <Step title="Enable Forecasting">
@@ -126,9 +124,11 @@ Accuracy improves over time. With 90 days of data, models reach ~70–80% accura
 
 ## Quality Prediction via API
 
-<CodeGroup>
-```javascript Node.js
-const qualityConfig = {
+<Tabs>
+  <Tab title="Node.js">
+    <CodeGroup>
+      <CodeBlock language="javascript" title="Node.js">
+{`const qualityConfig = {
   enabled: true,
   monitoring_interval: "5m",
   thresholds: {
@@ -138,3 +138,47 @@ const qualityConfig = {
   },
   alert_channels: ["email", "sms", "push", "slack"]
 };
+
+await fetch("https://api.salsaasaservice.com/v2/quality/config", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(qualityConfig)
+});`}
+      </CodeBlock>
+    </CodeGroup>
+  </Tab>
+
+  <Tab title="Python">
+    <CodeGroup>
+      <CodeBlock language="python" title="Python">
+{`import requests
+
+quality_config = {
+  "enabled": True,
+  "monitoring_interval": "5m",
+  "thresholds": {
+    "temperature": {"min": 35, "max": 40, "unit": "F"},
+    "freshness_score": {"min": 8.0},
+    "consistency": {"min": 7.5}
+  },
+  "alert_channels": ["email", "sms", "push", "slack"]
+}
+
+response = requests.post(
+  "https://api.salsaasaservice.com/v2/quality/config",
+  headers={"Authorization": "Bearer YOUR_API_KEY"},
+  json=quality_config
+)
+
+print(response.json())`}
+      </CodeBlock>
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+<Callout type="warning">
+Ensure your API key is generated under **V2 credentials**. V1 keys are not compatible with V2 endpoints.
+</Callout>
