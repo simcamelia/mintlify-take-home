@@ -15,19 +15,20 @@ The v2.0 API adds GraphQL support, enhanced webhooks, new AI forecasting endpoin
 
 ## Base URLs
 
-<CodeGroup>
-```text Production
+**REST (Production)**
+```text
 https://api.salsaasaservice.com/v2
 ```
 
-```text GraphQL
+**GraphQL**
+```text
 https://api.salsaasaservice.com/graphql
 ```
 
-```text Sandbox
+**REST (Sandbox)**
+```text
 https://api-sandbox.salsaasaservice.com/v2
 ```
-</CodeGroup>
 
 <Callout type="info">
 New in v2.0: GraphQL support allows flexible nested queries and fewer API round trips.
@@ -45,22 +46,22 @@ Get your API key from the <a href="https://app.salsaasaservice.com/settings/api"
 
 ### Authorization Header
 
-<CodeGroup>
-```http Header
+```http
 Authorization: Bearer YOUR_API_KEY
 ```
 
-```bash cURL Example
+**cURL**
+```bash
 curl -H "Authorization: Bearer YOUR_API_KEY" \
   https://api.salsaasaservice.com/v2/ingredients
 ```
 
-```javascript Fetch Example
+**Fetch**
+```javascript
 fetch("https://api.salsaasaservice.com/v2/ingredients", {
   headers: { Authorization: "Bearer YOUR_API_KEY" }
 });
 ```
-</CodeGroup>
 
 ---
 
@@ -70,11 +71,9 @@ fetch("https://api.salsaasaservice.com/v2/ingredients", {
 - **Professional Plan**: 10,000 requests per hour  
 - **Enterprise Plan**: 100,000 requests per hour  
 
-<Callout type="warning">
-Monitor the rate limit headers in responses to avoid throttling.
-</Callout>
+Rate limit headers are included in all responses:
 
-```http Rate Limit Headers
+```http
 X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999
 X-RateLimit-Reset: 1640995200
@@ -84,38 +83,14 @@ X-RateLimit-Reset: 1640995200
 
 ## Core Endpoints
 
-<CardGroup>
-  <Card title="Inventory Management" href="#inventory">
-    Manage salsa ingredients, track stock levels, and monitor freshness.
-  </Card>
+### Inventory Management {#inventory}
 
-  <Card title="Recipe Management" href="#recipes">
-    Create, update, and manage salsa recipes and production workflows.
-  </Card>
-
-  <Card title="Production Tracking" href="#production">
-    Track salsa production batches, quality metrics, and yield data.
-  </Card>
-
-  <Card title="Analytics & Reporting" href="#analytics">
-    Access detailed analytics and generate custom reports.
-  </Card>
-</CardGroup>
-
----
-
-## Inventory Management {#inventory}
-
-### GET /ingredients
-
-<Tabs>
-  <Tab title="Request">
+#### Get All Ingredients
 ```http
 GET /ingredients
 ```
-  </Tab>
 
-  <Tab title="Response">
+**Response**
 ```json
 {
   "data": [
@@ -135,15 +110,8 @@ GET /ingredients
   }
 }
 ```
-  </Tab>
-</Tabs>
 
----
-
-### PUT /ingredients/{ingredient_id}/stock
-
-<Tabs>
-  <Tab title="Request">
+#### Update Ingredient Stock
 ```http
 PUT /ingredients/{ingredient_id}/stock
 ```
@@ -155,33 +123,22 @@ PUT /ingredients/{ingredient_id}/stock
   "notes": "New shipment received"
 }
 ```
-  </Tab>
-
-  <Tab title="Response">
-```json
-{
-  "id": "ing_123",
-  "current_stock": 30.0,
-  "unit": "lbs",
-  "updated_at": "2024-01-15T11:00:00Z"
-}
-```
-  </Tab>
-</Tabs>
 
 ---
 
-## Recipe Management {#recipes}
+### Recipe Management {#recipes}
 
-### GET /recipes
-
+#### Get All Recipes
 ```http
 GET /recipes
 ```
 
-### POST /recipes
+#### Create New Recipe
+```http
+POST /recipes
+```
 
-```json Request Body
+```json
 {
   "name": "Spicy Chipotle Salsa",
   "spice_level": "hot",
@@ -193,11 +150,14 @@ GET /recipes
 
 ---
 
-## Production Tracking {#production}
+### Production Tracking {#production}
 
-### POST /production/batches
+#### Start Production Batch
+```http
+POST /production/batches
+```
 
-```json Request Body
+```json
 {
   "recipe_id": "rec_456",
   "batch_number": "BATCH-2024-001",
@@ -207,18 +167,13 @@ GET /recipes
 
 ---
 
-## Analytics & Reporting {#analytics}
+### Analytics & Reporting {#analytics}
 
-### GET /analytics/production
-
-<Tabs>
-  <Tab title="Request">
+#### Get Production Analytics
 ```http
 GET /analytics/production?period=30d
 ```
-  </Tab>
 
-  <Tab title="Response">
 ```json
 {
   "period": "30d",
@@ -226,14 +181,10 @@ GET /analytics/production?period=30d
   "average_quality_score": 8.7
 }
 ```
-  </Tab>
-</Tabs>
 
 ---
 
 ## Error Handling
-
-### Error Response Format
 
 ```json
 {
@@ -244,20 +195,16 @@ GET /analytics/production?period=30d
 }
 ```
 
-<Accordion title="Client Errors">
-- `400` Bad Request  
-- `401` Unauthorized  
-- `403` Forbidden  
-- `404` Not Found  
-- `422` Validation error  
-- `429` Rate limit exceeded  
-</Accordion>
-
-<Accordion title="Server Errors">
-- `500` Internal Server Error  
-- `502` Bad Gateway  
-- `503` Service Unavailable  
-</Accordion>
+Common error codes:
+- 400 Bad Request  
+- 401 Unauthorized  
+- 403 Forbidden  
+- 404 Not Found  
+- 422 Validation error  
+- 429 Too Many Requests  
+- 500 Internal Server Error  
+- 502 Bad Gateway  
+- 503 Service Unavailable  
 
 ---
 
@@ -267,7 +214,7 @@ GET /analytics/production?period=30d
 POST /webhooks
 ```
 
-```json Create Webhook Request
+```json
 {
   "url": "https://your-app.com/webhooks/salsa",
   "events": ["ingredient.low_stock", "production.batch_completed"],
