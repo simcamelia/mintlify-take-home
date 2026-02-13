@@ -73,12 +73,13 @@
           "fr/v1/changelog"
         ]
       },
-      {
-        "group": "Project Notes",
-        "pages": [
-          "navigation-decisions"
-        ]
-      }
+    {
+  "group": "Project Notes",
+  "pages": [
+    "navigation-decision",
+    "task2-decision"
+  ]
+}
     ]
   },
 
